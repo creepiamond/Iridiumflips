@@ -4,126 +4,91 @@
     <meta charset="UTF-8">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;600&display=swap" rel="stylesheet">
-    <title>Iridium Flips By creepiamond | 1988</title>
+    <title>VAULT 1988</title>
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #F9F7F2; color: #2D2926; }
-        .btn-main {
-            border: 1px solid #D1CDC7;
-            transition: all 0.4s ease;
-        }
-        .btn-main:hover {
-            background-color: #ECFDF5;
-            border-color: #10B981;
-            color: #065F46;
-        }
-        /* Fixed Square Input Styling */
+        .btn-main { border: 1px solid #D1CDC7; background: #FFF; transition: all 0.4s ease; cursor: pointer; }
+        .btn-main:hover { background-color: #ECFDF5; border-color: #10B981; color: #065F46; }
         .square-input {
             border: 1px solid #E5E1DA;
             background: #FFFFFF;
-            font-family: monospace; /* Keeps characters perfectly square */
-            letter-spacing: 1em;
-            text-indent: 1em;
+            letter-spacing: 0.8em;
+            text-indent: 0.8em;
+            border-radius: 0;
         }
-        .square-input:focus {
-            border-color: #D4AF37;
-            outline: none;
-            box-shadow: 0 0 0 1px #D4AF37;
-        }
+        .luxury-card { background: white; border: 1px solid #E5E1DA; }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-8">
 
     <div id="gate" class="text-center w-full max-w-md">
-        <h1 class="text-[12px] tracking-[0.4em] text-stone-400 mb-12 uppercase font-light leading-relaxed">
-            Please type the flipcode for <br>
-            <span class="text-stone-900 font-semibold text-[14px]">SECURED FLIPS</span>
+        <h1 class="text-[14px] tracking-[0.3em] text-stone-400 mb-10 uppercase font-light">
+            Please type the flipcode for secured flips
         </h1>
-        
-        <div class="relative max-w-[280px] mx-auto">
-            <input type="password" id="flipcode" maxlength="4" placeholder="••••" 
-                   class="square-input w-full py-5 text-center text-xl transition-all rounded-none">
-        </div>
-
-        <button onclick="checkCode()" class="mt-12 w-full max-w-[280px] py-4 btn-main text-[10px] uppercase tracking-[0.4em] font-medium">
-            Authorize Entry
-        </button>
-        <p id="error-msg" class="text-rose-400 text-[9px] mt-4 uppercase tracking-widest opacity-0 transition-opacity">Invalid Credentials</p>
+        <input type="password" id="flipcode" maxlength="4" placeholder="••••" 
+               class="square-input w-48 py-4 text-center text-xl outline-none focus:border-stone-900 mb-8">
+        <button onclick="checkCode()" class="block mx-auto w-48 py-3 btn-main text-[10px] uppercase tracking-[0.3em]">Authorize</button>
     </div>
 
     <div id="menu" class="hidden w-full max-w-2xl">
-        <div class="mb-16 text-center">
-            <h1 class="text-3xl font-light tracking-tighter text-stone-800">The <span class="italic font-normal text-stone-400">Latest Flips</span></h1>
-            <div class="h-[1px] w-12 bg-stone-200 mx-auto mt-4"></div>
-        </div>
+        <h1 class="text-2xl font-light tracking-tighter text-center mb-12">THE <span class="font-semibold text-stone-400">VAULT</span></h1>
         <div class="grid gap-4">
-            <button onclick="showFlips('crafting')" class="btn-main p-8 text-left flex justify-between items-center group">
-                <span class="text-lg">Crafting Flips</span>
-                <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+            <button onclick="showFlips('crafting')" class="btn-main p-8 text-left flex justify-between items-center">
+                <span>1. Crafting flips</span> <span>→</span>
             </button>
-            <button onclick="showFlips('combining')" class="btn-main p-8 text-left flex justify-between items-center group">
-                <span class="text-lg">Combining Flips</span>
-                <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+            <button onclick="showFlips('combining')" class="btn-main p-8 text-left flex justify-between items-center">
+                <span>2. combining flips</span> <span>→</span>
             </button>
-            <button onclick="showFlips('bz')" class="btn-main p-8 text-left flex justify-between items-center group">
-                <span class="text-lg">Buy/Sell Flips</span>
-                <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+            <button onclick="showFlips('bz')" class="btn-main p-8 text-left flex justify-between items-center">
+                <span>3. BS flips</span> <span>→</span>
             </button>
         </div>
     </div>
 
     <div id="vault" class="hidden w-full max-w-5xl">
-        <div class="flex flex-col gap-8 mb-12">
-            <button onclick="backToMenu()" class="text-[9px] uppercase tracking-widest text-stone-400 hover:text-stone-900 w-fit">← Return</button>
-            <div class="border-l border-[#D4AF37] bg-[#D4AF37]/[0.03] p-6">
-                <p id="strategy-desc" class="text-sm font-light leading-relaxed text-stone-600"></p>
-            </div>
+        <button onclick="backToMenu()" class="text-[10px] uppercase tracking-widest text-stone-400 mb-8 hover:text-stone-900">← Back</button>
+        <div class="border-l-2 border-emerald-500 bg-white p-6 mb-10 shadow-sm">
+            <p id="strategy-desc" class="text-sm font-medium text-stone-700"></p>
         </div>
         <div id="dashboard" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </div>
 
     <script>
-        const SECRET_CODE = "1988"; // New Password Updated
+        const SECRET_CODE = "1988";
 
         const flipData = {
             crafting: {
-                desc: "Strategy: Acquire 8x Alligator Skin via Bazaar. Refine into Quick Bite I. Profit via Bazaar Sell Order.",
-                items: [{ id: 'ENCHANTED_BOOK', name: 'Quick Bite 1' }]
+                title: "buy order 8x Alligator skin from BZ and craft quick bite 1 enchanted book or type /recipe quick bite for fast crafting then sell into bazaar",
+                items: [{ id: 'ENCHANTED_BOOK:QUICK_BITE:1', name: 'Quick Bite 1' }]
             },
             combining: {
-                desc: "Strategy: Acquire 16x Tier 1 books. Synthesize into 1x Tier 5 Masterpiece. Sell as Order.",
-                items: [{ id: 'ENCHANTED_BOOK', name: 'Charm 1' }]
+                title: "Buy order tier 1 books from bazaar and combine into tier 5 then sell order 16x t1 book = 1x t5 book",
+                items: [{ id: 'ENCHANTED_BOOK:CHARM:1', name: 'Charm 1' }]
             },
             bz: {
-                desc: "Strategy: High-liquidity Bazaar arbitrage on curated raw materials.",
+                title: "BS flips",
                 items: [
                     { id: 'ENCHANTED_RAW_RABBIT', name: 'Enchanted Raw Rabbit' },
-                    { id: 'HALF_EATEN_MUSHROOM', name: 'Half-Eaten Mushroom' },
-                    { id: 'FINE_FLOUR', name: 'Fine Flour' }
+                    { id: 'HALF_EATEN_MUSHROOM', name: 'Half-eaten mushroom' },
+                    { id: 'FINE_FLOUR', name: 'Fine flour' }
                 ]
             }
         };
 
         function checkCode() {
-            const input = document.getElementById('flipcode').value;
-            const error = document.getElementById('error-msg');
-
-            if (input === SECRET_CODE) {
+            if (document.getElementById('flipcode').value === SECRET_CODE) {
                 document.getElementById('gate').style.display = 'none';
                 document.getElementById('menu').classList.remove('hidden');
-            } else {
-                error.classList.remove('opacity-0');
-                setTimeout(() => error.classList.add('opacity-0'), 2000);
-                document.getElementById('flipcode').value = '';
             }
         }
 
         async function showFlips(cat) {
             document.getElementById('menu').classList.add('hidden');
             document.getElementById('vault').classList.remove('hidden');
-            document.getElementById('strategy-desc').innerText = flipData[cat].desc;
+            document.getElementById('strategy-desc').innerText = flipData[cat].title;
             
             const container = document.getElementById('dashboard');
-            container.innerHTML = '<div class="col-span-full py-20 text-center text-[10px] tracking-[0.4em] text-stone-300 uppercase animate-pulse">Syncing Market Data...</div>';
+            container.innerHTML = '<p class="text-stone-300 uppercase tracking-widest text-xs">Fetching Market Prices...</p>';
 
             try {
                 const res = await fetch('https://api.hypixel.net/v2/skyblock/bazaar');
@@ -131,22 +96,22 @@
                 container.innerHTML = '';
 
                 flipData[cat].items.forEach(item => {
-                    const stats = data.products[item.id].quick_status;
-                    const profit = Math.floor(stats.sellPrice - stats.buyPrice);
-                    
-                    container.innerHTML += `
-                        <div class="bg-white border border-[#E5E1DA] p-10 rounded-none hover:border-[#10B981] transition-all">
-                            <h2 class="text-xs font-normal tracking-[0.2em] text-stone-400 uppercase mb-8">${item.name}</h2>
-                            <div class="flex justify-between items-baseline">
-                                <span class="text-[10px] font-light text-stone-300 uppercase tracking-tighter">Margin</span>
-                                <span class="text-3xl font-light ${profit > 0 ? 'text-emerald-600' : 'text-rose-400'} tracking-tighter">
-                                    +${profit.toLocaleString()}
-                                </span>
-                            </div>
-                        </div>
-                    `;
+                    const stats = data.products[item.id]?.quick_status;
+                    if (stats) {
+                        const profit = Math.floor(stats.sellPrice - stats.buyPrice);
+                        container.innerHTML += `
+                            <div class="luxury-card p-10">
+                                <h2 class="text-[10px] tracking-[0.2em] text-stone-400 uppercase mb-6">${item.name}</h2>
+                                <div class="flex justify-between items-baseline">
+                                    <span class="text-[10px] text-stone-300 font-bold uppercase">Margin</span>
+                                    <span class="text-3xl font-light ${profit > 0 ? 'text-emerald-600' : 'text-rose-400'}">
+                                        +${profit.toLocaleString()}
+                                    </span>
+                                </div>
+                            </div>`;
+                    }
                 });
-            } catch (e) { container.innerHTML = "SYSTEM OFFLINE"; }
+            } catch (e) { container.innerHTML = "API Connection Failed"; }
         }
 
         function backToMenu() {
