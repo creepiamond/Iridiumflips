@@ -4,85 +4,88 @@
     <meta charset="UTF-8">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;600&display=swap" rel="stylesheet">
-    <title>THE VAULT | CREEPIAMOND</title>
+    <title>VAULT | CREEPIAMOND</title>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #0a0a0a; color: #ffffff; overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; background-color: #FFFDF5; color: #4A4540; overflow-x: hidden; }
         
-        .neon-text { text-shadow: 0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.4); }
+        /* Neon White Light Font */
+        .neon-white { 
+            color: white;
+            text-shadow: 0 0 5px rgba(255,255,255,1), 0 0 10px rgba(255,255,255,0.5), 0 0 2px rgba(0,0,0,0.2); 
+        }
         
         .luxury-box {
-            background: rgba(255, 255, 255, 0.02);
+            background: #FFFFFF;
             border: 1px solid rgba(16, 185, 129, 0.2);
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.05);
+            box-shadow: 0 10px 30px rgba(255, 159, 102, 0.05);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .luxury-box:hover {
             border-color: rgba(16, 185, 129, 1);
-            box-shadow: 0 0 25px rgba(16, 185, 129, 0.2);
-            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.1);
+            transform: translateY(-3px);
         }
 
         .btn-modern {
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid #FF9F66;
             background: transparent;
+            color: #FF9F66;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
 
         .btn-modern:hover {
-            background: #fff;
-            color: #000;
-            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+            background: #FF9F66;
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 159, 102, 0.3);
         }
 
         .square-input {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid #222;
+            background: #FFFFFF;
+            border: 1px solid #E5E1DA;
             letter-spacing: 1em;
             text-indent: 1em;
-            color: white;
+            color: #4A4540;
         }
 
-        .square-input:focus { border-color: #10b981; outline: none; }
+        .square-input:focus { border-color: #FF9F66; outline: none; }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
 
     <div class="fixed top-8 w-full text-center z-50">
-        <p class="text-[10px] tracking-[0.8em] uppercase opacity-40 font-light">Flips by creepiamond</p>
+        <p class="text-[10px] tracking-[0.8em] uppercase text-stone-400 font-light">Flips by creepiamond</p>
     </div>
 
     <div id="gate" class="text-center w-full max-w-sm">
-        <h1 class="neon-text text-xl tracking-[0.5em] mb-12 font-extralight uppercase">Authentication</h1>
-        <p class="text-[10px] text-stone-500 mb-6 uppercase tracking-widest">Please type the flipcode for secured flips</p>
+        <h1 class="text-2xl tracking-[0.4em] mb-12 font-light uppercase text-stone-800">Authentication</h1>
+        <p class="text-[10px] text-stone-400 mb-6 uppercase tracking-widest">Please type the flipcode for secured flips</p>
         <input type="password" id="flipcode" maxlength="4" placeholder="••••" 
                class="square-input w-full py-4 text-center text-xl mb-6">
-        <button onclick="checkCode()" class="btn-modern w-full py-4 text-[10px] uppercase tracking-[0.4em]">Initialize</button>
+        <button onclick="checkCode()" class="btn-modern w-full py-4 text-[10px] uppercase tracking-[0.4em]">Authorize</button>
         <p id="error-msg" class="text-rose-500 text-[10px] mt-4 uppercase tracking-widest opacity-0 transition-opacity">Access Denied</p>
     </div>
 
-    <div id="menu" class="hidden w-full max-w-2xl animate-in fade-in zoom-in duration-700">
+    <div id="menu" class="hidden w-full max-w-2xl animate-in fade-in duration-700">
         <div class="grid gap-6">
-            <button onclick="showFlips('crafting')" class="btn-modern p-10 text-left flex justify-between items-center group">
+            <button onclick="showFlips('crafting')" class="btn-modern p-10 text-left flex justify-between items-center group bg-white">
                 <span class="text-lg font-light tracking-widest">01 // CRAFTING</span>
-                <span class="opacity-20 group-hover:opacity-100 group-hover:text-emerald-400">SELECT</span>
+                <span class="opacity-40 group-hover:opacity-100 group-hover:text-white transition-opacity">SELECT</span>
             </button>
-            <button onclick="showFlips('combining')" class="btn-modern p-10 text-left flex justify-between items-center group">
+            <button onclick="showFlips('combining')" class="btn-modern p-10 text-left flex justify-between items-center group bg-white">
                 <span class="text-lg font-light tracking-widest">02 // COMBINING</span>
-                <span class="opacity-20 group-hover:opacity-100 group-hover:text-emerald-400">SELECT</span>
+                <span class="opacity-40 group-hover:opacity-100 group-hover:text-white transition-opacity">SELECT</span>
             </button>
-            <button onclick="showFlips('bz')" class="btn-modern p-10 text-left flex justify-between items-center group">
+            <button onclick="showFlips('bz')" class="btn-modern p-10 text-left flex justify-between items-center group bg-white">
                 <span class="text-lg font-light tracking-widest">03 // BZ FLIPS</span>
-                <span class="opacity-20 group-hover:opacity-100 group-hover:text-emerald-400">SELECT</span>
+                <span class="opacity-40 group-hover:opacity-100 group-hover:text-white transition-opacity">SELECT</span>
             </button>
         </div>
     </div>
 
     <div id="vault" class="hidden w-full max-w-6xl">
         <div class="flex justify-between items-center mb-12">
-            <button onclick="backToMenu()" class="text-[10px] tracking-widest text-emerald-500 hover:neon-text uppercase">← Return</button>
+            <button onclick="backToMenu()" class="text-[10px] tracking-widest text-emerald-600 hover:text-emerald-400 uppercase">← Back to Strategies</button>
         </div>
         <div id="dashboard" class="grid grid-cols-1 gap-8"></div>
     </div>
@@ -128,7 +131,7 @@
             document.getElementById('vault').classList.remove('hidden');
             
             const container = document.getElementById('dashboard');
-            container.innerHTML = '<div class="text-center py-20 neon-text tracking-[1em] text-xs animate-pulse">SYNCHRONIZING...</div>';
+            container.innerHTML = '<div class="text-center py-20 tracking-[1em] text-xs animate-pulse text-stone-400">LOADING DATA...</div>';
 
             try {
                 const res = await fetch('https://api.hypixel.net/v2/skyblock/bazaar');
@@ -137,9 +140,9 @@
 
                 // Strategy Title Box
                 container.innerHTML += `
-                    <div class="luxury-box p-8 mb-4 border-l-4 border-l-emerald-500">
-                        <p class="text-xs tracking-widest text-emerald-400 font-bold uppercase mb-2">Strategy Intelligence</p>
-                        <p class="text-sm font-light leading-relaxed opacity-80">${flipData[cat].title}</p>
+                    <div class="luxury-box p-8 mb-4 border-l-4 border-l-emerald-500 rounded-none">
+                        <p class="text-xs tracking-widest text-emerald-600 font-bold uppercase mb-2">Strategy Intelligence</p>
+                        <p class="text-sm font-light leading-relaxed text-stone-600">${flipData[cat].title}</p>
                     </div>`;
 
                 const itemsGrid = document.createElement('div');
@@ -148,23 +151,26 @@
                 flipData[cat].items.forEach(item => {
                     const stats = data.products[item.id]?.quick_status;
                     if (stats) {
-                        const isBZ = cat === 'bz';
+                        const buyPrice = Math.floor(stats.buyPrice);
+                        const sellPrice = Math.floor(stats.sellPrice);
+                        const spread = sellPrice - buyPrice;
+                        
                         itemsGrid.innerHTML += `
-                            <div class="luxury-box p-8 flex flex-col justify-between min-h-[200px]">
-                                <h2 class="text-[10px] tracking-[0.3em] text-stone-500 uppercase mb-4">${item.name}</h2>
+                            <div class="luxury-box p-8 flex flex-col justify-between min-h-[220px] rounded-none">
+                                <h2 class="neon-white text-[11px] tracking-[0.2em] uppercase mb-6 bg-stone-800 py-2 px-3 inline-block w-fit">${item.name}</h2>
                                 <div class="space-y-4">
-                                    <div class="flex justify-between items-center text-[10px] border-b border-white/5 pb-2">
-                                        <span class="opacity-40 uppercase">Buy Order</span>
-                                        <span>${Math.floor(stats.buyPrice).toLocaleString()}</span>
+                                    <div class="flex justify-between items-center text-[10px] border-b border-stone-100 pb-2">
+                                        <span class="text-stone-400 uppercase">Buy Order</span>
+                                        <span class="font-semibold">${buyPrice.toLocaleString()}</span>
                                     </div>
-                                    <div class="flex justify-between items-center text-[10px] border-b border-white/5 pb-2">
-                                        <span class="opacity-40 uppercase">Sell Order</span>
-                                        <span>${Math.floor(stats.sellPrice).toLocaleString()}</span>
+                                    <div class="flex justify-between items-center text-[10px] border-b border-stone-100 pb-2">
+                                        <span class="text-stone-400 uppercase">Sell Order</span>
+                                        <span class="font-semibold">${sellPrice.toLocaleString()}</span>
                                     </div>
                                     <div class="pt-4 flex justify-between items-baseline">
-                                        <span class="text-[9px] text-emerald-500 font-bold tracking-tighter uppercase">Net Spread</span>
-                                        <span class="text-2xl font-extralight tracking-tighter text-white">
-                                            +${Math.floor(stats.sellPrice - stats.buyPrice).toLocaleString()}
+                                        <span class="text-[9px] text-emerald-600 font-bold tracking-tighter uppercase">Net Spread</span>
+                                        <span class="text-2xl font-light tracking-tighter text-stone-800">
+                                            +${spread.toLocaleString()}
                                         </span>
                                     </div>
                                 </div>
@@ -172,7 +178,7 @@
                     }
                 });
                 container.appendChild(itemsGrid);
-            } catch (e) { container.innerHTML = "API LINK SEVERED"; }
+            } catch (e) { container.innerHTML = "API OFFLINE"; }
         }
 
         function backToMenu() {
