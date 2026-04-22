@@ -1,60 +1,85 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>BZ VAULT</title>
+    <title>BZ VAULT | PROTECTED</title>
 </head>
-<body class="bg-[#fafafa] text-[#1a1a1a] p-10 font-sans">
-    <header class="mb-12">
-        <h1 class="text-2xl font-light tracking-tighter text-stone-900">BZ <span class="font-bold text-stone-500">VAULT</span></h1>
-        <p class="text-stone-400 text-xs uppercase tracking-widest mt-1">Live Market Selection</p>
-    </header>
+<body class="bg-[#fafafa] text-[#1a1a1a] p-10 font-sans flex flex-col items-center justify-center min-h-screen">
 
-    <div id="dashboard" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <p class="text-stone-400 italic">Authenticating with Bazaar...</p>
+    <div id="gate" class="text-center transition-all duration-700">
+        <h1 class="text-xl font-light tracking-[0.2em] text-stone-400 mb-8 uppercase">Authentication Required</h1>
+        <input type="password" id="flipcode" placeholder="ENTER FLIPCODE" 
+               class="bg-transparent border-b border-stone-300 py-2 px-4 text-center outline-none focus:border-stone-900 transition-all">
+        <button onclick="checkCode()" class="block mt-8 mx-auto text-xs tracking-widest text-stone-500 hover:text-stone-900 uppercase">Access Vault</button>
+        <p id="error" class="text-rose-400 text-xs mt-4 opacity-0">Access Denied</p>
+    </div>
+
+    <div id="vault" class="hidden w-full max-w-4xl">
+        <header class="mb-12 border-b border-stone-100 pb-8">
+            <h1 class="text-2xl font-light tracking-tighter text-stone-900">BZ <span class="font-bold text-stone-500">VAULT</span></h1>
+            <p class="text-stone-400 text-xs uppercase tracking-widest mt-1">Verified Access Only</p>
+        </header>
+
+        <div id="dashboard" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <p class="text-stone-400 italic">Syncing with Bazaar API...</p>
+        </div>
     </div>
 
     <script>
-        // Only show the items you actually want to flip
+        const SECRET_CODE = "1988"; // <-- CHANGE YOUR PASSWORD HERE
+        
         const myItems = [
             { id: 'BOOSTER_COOKIE', name: 'Booster Cookie' },
             { id: 'ENCHANTED_COBBLESTONE', name: 'Enchanted Cobble' },
             { id: 'STOCK_OF_STONKS', name: 'Stock of Stonks' }
         ];
 
+        function checkCode() {
+            const input = document.getElementById('flipcode').value;
+            const error = document.getElementById('error');
+            
+            if (input === SECRET_CODE) {
+                document.getElementById('gate').classList.add('opacity-0', 'pointer-events-none');
+                setTimeout(() => {
+                    document.getElementById('gate').style.display = 'none';
+                    document.getElementById('vault').classList.remove('hidden');
+                    getBazaarData();
+                }, 500);
+            } else {
+                error.classList.remove('opacity-0');
+                setTimeout(() => error.classList.add('opacity-0'), 2000);
+            }
+        }
+
         async function getBazaarData() {
             try {
                 const res = await fetch('https://api.hypixel.net/v2/skyblock/bazaar');
                 const data = await res.json();
                 const container = document.getElementById('dashboard');
-                container.innerHTML = ''; // Clear the loading text
+                container.innerHTML = ''; 
 
                 myItems.forEach(item => {
                     const stats = data.products[item.id].quick_status;
                     const profit = Math.floor(stats.sellPrice - stats.buyPrice);
                     
-                    // The "Simple Luxury" Card Template
                     container.innerHTML += `
-                        <div class="bg-white border border-stone-200 p-6 rounded-sm shadow-sm transition-all hover:border-stone-400">
+                        <div class="bg-white border border-stone-200 p-8 rounded-sm shadow-sm">
                             <h2 class="text-lg font-medium text-stone-800">${item.name}</h2>
                             <div class="mt-8 flex justify-between items-end">
-                                <span class="text-stone-400 text-xs uppercase tracking-tight">Net Profit</span>
+                                <span class="text-stone-400 text-[10px] uppercase tracking-widest">Margin</span>
                                 <span class="text-xl font-light ${profit > 0 ? 'text-emerald-600' : 'text-rose-600'}">
-                                    ${profit.toLocaleString()}
+                                    +${profit.toLocaleString()}
                                 </span>
                             </div>
                         </div>
                     `;
                 });
             } catch (err) {
-                console.error("Error fetching data:", err);
+                console.error("API Sync Error");
             }
         }
-
-        getBazaarData();
-        // Refresh every 60 seconds automatically
-        setInterval(getBazaarData, 60000);
     </script>
 </body>
 </html>
