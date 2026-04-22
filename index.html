@@ -3,22 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>BZ Vault | Select</title>
+    <title>BZ VAULT</title>
 </head>
 <body class="bg-[#fafafa] text-[#1a1a1a] p-10 font-sans">
     <header class="mb-12">
-        <h1 class="text-2xl font-light tracking-tighter">BZ <span class="font-bold text-stone-500">VAULT</span></h1>
-        <p class="text-stone-400 text-xs uppercase tracking-widest mt-1">Manual Selection</p>
+        <h1 class="text-2xl font-light tracking-tighter text-stone-900">BZ <span class="font-bold text-stone-500">VAULT</span></h1>
+        <p class="text-stone-400 text-xs uppercase tracking-widest mt-1">Live Market Selection</p>
     </header>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl">
-        <div class="bg-white border border-stone-200 p-6 rounded-sm shadow-sm">
-            <h2 class="text-lg font-medium">Booster Cookie</h2>
-            <div class="mt-8 flex justify-between items-end">
-                <span class="text-stone-400 text-sm">Target Profit</span>
-                <span class="text-xl font-light text-emerald-600">+800k</span>
-            </div>
-        </div>
+    <div id="dashboard" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <p class="text-stone-400 italic">Authenticating with Bazaar...</p>
     </div>
+
+    <script>
+        // Only show the items you actually want to flip
+        const myItems = [
+            { id: 'BOOSTER_COOKIE', name: 'Booster Cookie' },
+            { id: 'ENCHANTED_COBBLESTONE', name: 'Enchanted Cobble' },
+            { id: 'STOCK_OF_STONKS', name: 'Stock of Stonks' }
+        ];
+
+        async function getBazaarData() {
+            try {
+                const res = await fetch('https://api.hypixel.net/v2/skyblock/bazaar');
+                const data = await res.json();
+                const container = document.getElementById('dashboard');
+                container.innerHTML = ''; // Clear the loading text
+
+                myItems.forEach(item => {
+                    const stats = data.products[item.id].quick_status;
+                    const profit = Math.floor(stats.sellPrice - stats.buyPrice);
+                    
+                    // The "Simple Luxury" Card Template
+                    container.innerHTML += `
+                        <div class="bg-white border border-stone-200 p-6 rounded-sm shadow-sm transition-all hover:border-stone-400">
+                            <h2 class="text-lg font-medium text-stone-800">${item.name}</h2>
+                            <div class="mt-8 flex justify-between items-end">
+                                <span class="text-stone-400 text-xs uppercase tracking-tight">Net Profit</span>
+                                <span class="text-xl font-light ${profit > 0 ? 'text-emerald-600' : 'text-rose-600'}">
+                                    ${profit.toLocaleString()}
+                                </span>
+                            </div>
+                        </div>
+                    `;
+                });
+            } catch (err) {
+                console.error("Error fetching data:", err);
+            }
+        }
+
+        getBazaarData();
+        // Refresh every 60 seconds automatically
+        setInterval(getBazaarData, 60000);
+    </script>
 </body>
 </html>
