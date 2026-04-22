@@ -157,8 +157,8 @@
                 const buyPrice = Math.floor(stats.buyPrice);
                 const sellPrice = Math.floor(stats.sellPrice);
                 const spread = sellPrice - buyPrice;
-                const weeklyBuy = product.buy_moving_week || 0;
-                const weeklySell = product.sell_moving_week || 0;     
+                const weeklyBuy = product.buy_moving_week || product.quick_status?.buyWeekly || 0;
+                const weeklySell = product.sell_moving_week || product.quick_status?.sellWeekly || 0;
                         itemsGrid.innerHTML += `
                             <div class="luxury-box p-8 flex flex-col justify-between min-h-[220px] rounded-none">
                                 <h2 class="neon-white text-[11px] tracking-[0.2em] uppercase mb-6 bg-stone-800 py-2 px-3 inline-block w-fit">${item.name}</h2>
