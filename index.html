@@ -3,63 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&family=VT323&display=swap" rel="stylesheet">
-    <title>THE VAULT | BESPOKE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;400&display=swap" rel="stylesheet">
+    <title>THE VAULT | QUIET LUXURY</title>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #1a0f0e; }
-        .pixel-font { font-family: 'VT323', monospace; }
-        .luxury-box {
-            border: 1px solid #4a3728;
-            background: linear-gradient(145deg, #2a1b1a, #1f1413);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #F9F7F2; 
+            color: #2D2926;
         }
-        .btn-luxury {
-            background-color: #2d1d1c;
-            border: 2px solid #3d2b2a;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        .luxury-card {
+            background: #FFFFFF;
+            border: 1px solid #E5E1DA;
+            transition: all 0.5s ease;
         }
-        .btn-luxury:hover {
-            border-color: #10b981;
-            background-color: #064e3b;
-            transform: scale(1.02);
-            color: #10b981;
+        .luxury-card:hover {
+            border-color: #10B981;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.05);
+        }
+        .btn-main {
+            border: 1px solid #D1CDC7;
+            background: transparent;
+            transition: all 0.4s ease;
+            font-weight: 200;
+        }
+        .btn-main:hover {
+            background-color: #ECFDF5;
+            border-color: #10B981;
+            color: #065F46;
+            letter-spacing: 0.1em;
+        }
+        .title-box {
+            border-left: 1px solid #D4AF37;
+            background: rgba(212, 175, 55, 0.03);
         }
     </style>
 </head>
-<body class="text-[#eaddca] min-h-screen flex items-center justify-center p-6">
+<body class="min-h-screen flex items-center justify-center p-8">
 
-    <div id="gate" class="text-center w-full max-w-md animate-pulse">
-        <h1 class="pixel-font text-5xl mb-8 text-[#d4af37] tracking-widest">AUTHENTICATE</h1>
-        <input type="password" id="flipcode" placeholder="PIN" 
-               class="w-full bg-transparent border-b-2 border-[#3d2b2a] py-4 text-center outline-none focus:border-[#d4af37] transition-all text-2xl tracking-[1em]">
-        <button onclick="checkCode()" class="mt-12 px-12 py-4 btn-luxury rounded-sm uppercase tracking-[0.3em] text-xs font-bold">Open Vault</button>
+    <div id="gate" class="text-center w-full max-w-sm">
+        <h1 class="text-[10px] tracking-[0.5em] text-[#D4AF37] mb-16 uppercase font-light">Secure Entry</h1>
+        <input type="password" id="flipcode" placeholder="••••" 
+               class="w-full bg-transparent border-b border-stone-200 py-4 text-center outline-none focus:border-stone-900 transition-all text-xl font-light tracking-widest">
+        <button onclick="checkCode()" class="mt-12 w-full py-4 btn-main text-[10px] uppercase tracking-[0.3em]">Access Boutique</button>
     </div>
 
-    <div id="menu" class="hidden w-full max-w-2xl text-center">
-        <div class="luxury-box p-4 mb-12 inline-block rounded-lg px-10">
-            <h1 class="pixel-font text-4xl text-[#d4af37]">SELECT YOUR CRAFT</h1>
+    <div id="menu" class="hidden w-full max-w-2xl">
+        <div class="mb-16 text-center">
+            <h1 class="text-3xl font-light tracking-tighter text-stone-800">The <span class="italic font-normal text-stone-400">Vault</span></h1>
+            <div class="h-[1px] w-12 bg-stone-200 mx-auto mt-4"></div>
         </div>
-        <div class="grid gap-6">
-            <button onclick="showFlips('crafting')" class="btn-luxury p-10 rounded-xl text-2xl font-light tracking-tighter flex justify-between items-center">
-                <span>01. CRAFTING FLIPS</span> <span class="pixel-font text-3xl opacity-50">>></span>
+        <div class="grid gap-4">
+            <button onclick="showFlips('crafting')" class="btn-main p-8 text-left flex justify-between items-center group">
+                <span class="text-lg">01. Crafting Portfolio</span>
+                <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
             </button>
-            <button onclick="showFlips('combining')" class="btn-luxury p-10 rounded-xl text-2xl font-light tracking-tighter flex justify-between items-center">
-                <span>02. COMBINING FLIPS</span> <span class="pixel-font text-3xl opacity-50">>></span>
+            <button onclick="showFlips('combining')" class="btn-main p-8 text-left flex justify-between items-center group">
+                <span class="text-lg">02. Combining Portfolio</span>
+                <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
             </button>
-            <button onclick="showFlips('bz')" class="btn-luxury p-10 rounded-xl text-2xl font-light tracking-tighter flex justify-between items-center">
-                <span>03. BZ FLIPS</span> <span class="pixel-font text-3xl opacity-50">>></span>
+            <button onclick="showFlips('bz')" class="btn-main p-8 text-left flex justify-between items-center group">
+                <span class="text-lg">03. Market Spreads</span>
+                <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
             </button>
         </div>
     </div>
 
-    <div id="vault" class="hidden w-full max-w-6xl">
-        <div class="flex justify-between items-center mb-10">
-            <button onclick="backToMenu()" class="pixel-font text-2xl text-emerald-500 hover:text-emerald-300"> < BACK </button>
-            <div id="title-box" class="luxury-box px-8 py-3 rounded-full border-[#d4af37]/30">
-                <p id="strategy-desc" class="text-xs font-bold tracking-widest text-[#d4af37] uppercase text-center"></p>
+    <div id="vault" class="hidden w-full max-w-5xl">
+        <div class="flex flex-col gap-8 mb-12">
+            <button onclick="backToMenu()" class="text-[9px] uppercase tracking-widest text-stone-400 hover:text-stone-900 w-fit">← Return</button>
+            <div class="title-box p-6">
+                <p id="strategy-desc" class="text-sm font-light leading-relaxed text-stone-600"></p>
             </div>
         </div>
-        <div id="dashboard" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        <div id="dashboard" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </div>
 
     <script>
@@ -67,17 +83,17 @@
 
         const flipData = {
             crafting: {
-                desc: "Formula: 8x Alligator Skin → Quick Bite I [Use /recipe for speed]",
-                items: [{ id: 'ENCHANTED_BOOK', name: 'Quick Bite 1', variant: 'QUICK_BITE;1' }]
+                desc: "Strategy: Acquire 8x Alligator Skin via Bazaar. Refine into Quick Bite I. Profit via Bazaar Sell Order.",
+                items: [{ id: 'ENCHANTED_BOOK', name: 'Quick Bite 1' }]
             },
             combining: {
-                desc: "Algorithm: 16x Tier 1 Books → 1x Tier 5 Masterpiece",
-                items: [{ id: 'ENCHANTED_BOOK', name: 'Charm 1', variant: 'CHARM;1' }]
+                desc: "Strategy: Acquire 16x Tier 1 books. Synthesize into 1x Tier 5 Masterpiece. Sell as Order.",
+                items: [{ id: 'ENCHANTED_BOOK', name: 'Charm 1' }]
             },
             bz: {
-                desc: "Market Spreads: High Velocity Buy/Sell Orders",
+                desc: "Strategy: High-liquidity Bazaar arbitrage on curated raw materials.",
                 items: [
-                    { id: 'ENCHANTED_RAW_RABBIT', name: 'Enchanted Rabbit' },
+                    { id: 'ENCHANTED_RAW_RABBIT', name: 'Enchanted Raw Rabbit' },
                     { id: 'HALF_EATEN_MUSHROOM', name: 'Half-Eaten Mushroom' },
                     { id: 'FINE_FLOUR', name: 'Fine Flour' }
                 ]
@@ -97,7 +113,7 @@
             document.getElementById('strategy-desc').innerText = flipData[cat].desc;
             
             const container = document.getElementById('dashboard');
-            container.innerHTML = '<div class="col-span-full text-center pixel-font text-2xl animate-pulse">EXTRACTING DATA...</div>';
+            container.innerHTML = '<div class="col-span-full py-20 text-center text-[10px] tracking-[0.4em] text-stone-300 uppercase animate-pulse">Syncing Market Data...</div>';
 
             try {
                 const res = await fetch('https://api.hypixel.net/v2/skyblock/bazaar');
@@ -109,18 +125,18 @@
                     const profit = Math.floor(stats.sellPrice - stats.buyPrice);
                     
                     container.innerHTML += `
-                        <div class="luxury-box p-8 rounded-2xl border-t-2 border-t-[#d4af37]/20">
-                            <h2 class="pixel-font text-3xl text-[#eaddca] mb-6">${item.name}</h2>
-                            <div class="flex justify-between items-center">
-                                <span class="text-[10px] tracking-[0.3em] text-[#4a3728] font-black uppercase">Net Margin</span>
-                                <span class="text-3xl font-bold ${profit > 0 ? 'text-emerald-500' : 'text-rose-500'} tracking-tighter">
+                        <div class="luxury-card p-10 rounded-sm">
+                            <h2 class="text-xs font-normal tracking-[0.2em] text-stone-400 uppercase mb-8">${item.name}</h2>
+                            <div class="flex justify-between items-baseline">
+                                <span class="text-[10px] font-light text-stone-300 uppercase tracking-tighter">Margin</span>
+                                <span class="text-3xl font-light ${profit > 0 ? 'text-emerald-600' : 'text-rose-400'} tracking-tighter">
                                     +${profit.toLocaleString()}
                                 </span>
                             </div>
                         </div>
                     `;
                 });
-            } catch (e) { container.innerHTML = "API OFFLINE"; }
+            } catch (e) { container.innerHTML = "SYSTEM OFFLINE"; }
         }
 
         function backToMenu() {
