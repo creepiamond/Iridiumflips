@@ -3,120 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>BZ VAULT | SECURE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&family=VT323&display=swap" rel="stylesheet">
+    <title>THE VAULT | BESPOKE</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #1a0f0e; }
+        .pixel-font { font-family: 'VT323', monospace; }
+        .luxury-box {
+            border: 1px solid #4a3728;
+            background: linear-gradient(145deg, #2a1b1a, #1f1413);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .btn-luxury {
+            background-color: #2d1d1c;
+            border: 2px solid #3d2b2a;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .btn-luxury:hover {
+            border-color: #10b981;
+            background-color: #064e3b;
+            transform: scale(1.02);
+            color: #10b981;
+        }
+    </style>
 </head>
-<body class="bg-[#fafafa] text-[#1a1a1a] font-sans flex items-center justify-center min-h-screen">
+<body class="text-[#eaddca] min-h-screen flex items-center justify-center p-6">
 
-    <div id="gate" class="text-center p-8 w-full max-w-md">
-        <h1 class="text-xl font-light tracking-[0.3em] text-stone-400 mb-12 uppercase italic">The Vault</h1>
-        <div class="space-y-6">
-            <input type="password" id="flipcode" placeholder="ENTER FLIPCODE" 
-                   class="w-full bg-transparent border-b border-stone-200 py-3 text-center outline-none focus:border-stone-900 transition-all placeholder:text-stone-300">
-            
-            <button onclick="checkCode()" 
-                    class="w-full py-4 text-[10px] tracking-[0.2em] font-semibold text-stone-400 hover:text-stone-900 border border-stone-100 hover:border-stone-900 transition-all uppercase">
-                Authorize Access
-            </button>
-            
-            <p id="error-msg" class="text-rose-400 text-[10px] uppercase tracking-widest opacity-0 transition-opacity">Access Denied: Invalid Code</p>
-        </div>
+    <div id="gate" class="text-center w-full max-w-md animate-pulse">
+        <h1 class="pixel-font text-5xl mb-8 text-[#d4af37] tracking-widest">AUTHENTICATE</h1>
+        <input type="password" id="flipcode" placeholder="PIN" 
+               class="w-full bg-transparent border-b-2 border-[#3d2b2a] py-4 text-center outline-none focus:border-[#d4af37] transition-all text-2xl tracking-[1em]">
+        <button onclick="checkCode()" class="mt-12 px-12 py-4 btn-luxury rounded-sm uppercase tracking-[0.3em] text-xs font-bold">Open Vault</button>
     </div>
 
-    <div id="category-menu" class="hidden text-center w-full max-w-xl animate-in fade-in duration-700">
-        <h1 class="text-2xl font-light mb-12 tracking-tight text-stone-900">SELECT <span class="font-bold text-stone-400 italic">STRATEGY</span></h1>
-        <div class="grid grid-cols-1 gap-4 px-6">
-            <button onclick="showFlips('crafting')" class="p-8 border border-stone-100 bg-white hover:border-stone-900 transition-all text-left flex justify-between items-center group shadow-sm">
-                <span class="font-medium tracking-tight text-stone-700">1. Crafting Flips</span>
-                <span class="text-stone-300 group-hover:text-stone-900 translate-x-0 group-hover:translate-x-2 transition-transform">→</span>
+    <div id="menu" class="hidden w-full max-w-2xl text-center">
+        <div class="luxury-box p-4 mb-12 inline-block rounded-lg px-10">
+            <h1 class="pixel-font text-4xl text-[#d4af37]">SELECT YOUR CRAFT</h1>
+        </div>
+        <div class="grid gap-6">
+            <button onclick="showFlips('crafting')" class="btn-luxury p-10 rounded-xl text-2xl font-light tracking-tighter flex justify-between items-center">
+                <span>01. CRAFTING FLIPS</span> <span class="pixel-font text-3xl opacity-50">>></span>
             </button>
-            <button onclick="showFlips('combining')" class="p-8 border border-stone-100 bg-white hover:border-stone-900 transition-all text-left flex justify-between items-center group shadow-sm">
-                <span class="font-medium tracking-tight text-stone-700">2. Combining Flips</span>
-                <span class="text-stone-300 group-hover:text-stone-900 translate-x-0 group-hover:translate-x-2 transition-transform">→</span>
+            <button onclick="showFlips('combining')" class="btn-luxury p-10 rounded-xl text-2xl font-light tracking-tighter flex justify-between items-center">
+                <span>02. COMBINING FLIPS</span> <span class="pixel-font text-3xl opacity-50">>></span>
             </button>
-            <button onclick="showFlips('bz')" class="p-8 border border-stone-100 bg-white hover:border-stone-900 transition-all text-left flex justify-between items-center group shadow-sm">
-                <span class="font-medium tracking-tight text-stone-700">3. BZ Flips</span>
-                <span class="text-stone-300 group-hover:text-stone-900 translate-x-0 group-hover:translate-x-2 transition-transform">→</span>
+            <button onclick="showFlips('bz')" class="btn-luxury p-10 rounded-xl text-2xl font-light tracking-tighter flex justify-between items-center">
+                <span>03. BZ FLIPS</span> <span class="pixel-font text-3xl opacity-50">>></span>
             </button>
         </div>
     </div>
 
-    <div id="vault" class="hidden w-full max-w-5xl px-10">
-        <div class="flex justify-between items-center mb-12">
-            <button onclick="backToMenu()" class="text-[9px] uppercase tracking-[0.2em] text-stone-400 hover:text-stone-900 transition-colors">← Return to Strategies</button>
-            <span class="text-[9px] uppercase tracking-[0.2em] text-stone-300">Market Sync: Active</span>
+    <div id="vault" class="hidden w-full max-w-6xl">
+        <div class="flex justify-between items-center mb-10">
+            <button onclick="backToMenu()" class="pixel-font text-2xl text-emerald-500 hover:text-emerald-300"> < BACK </button>
+            <div id="title-box" class="luxury-box px-8 py-3 rounded-full border-[#d4af37]/30">
+                <p id="strategy-desc" class="text-xs font-bold tracking-widest text-[#d4af37] uppercase text-center"></p>
+            </div>
         </div>
         <div id="dashboard" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
     </div>
 
     <script>
-        const SECRET_CODE = "GOLDEN_FLIP"; // Change this whenever you want
-        
+        const SECRET_CODE = "GOLDEN_FLIP"; 
+
         const flipData = {
-            crafting: [
-                { id: 'ENCHANTED_IRON_INGOT', name: 'Enchanted Iron' },
-                { id: 'ENCHANTED_DIAMOND', name: 'Enchanted Diamond' }
-            ],
-            combining: [
-                { id: 'RECOMBOBULATOR_3000', name: 'Recombobulator' }
-            ],
-            bz: [
-                { id: 'BOOSTER_COOKIE', name: 'Booster Cookie' },
-                { id: 'STOCK_OF_STONKS', name: 'Stock of Stonks' }
-            ]
+            crafting: {
+                desc: "Formula: 8x Alligator Skin → Quick Bite I [Use /recipe for speed]",
+                items: [{ id: 'ENCHANTED_BOOK', name: 'Quick Bite 1', variant: 'QUICK_BITE;1' }]
+            },
+            combining: {
+                desc: "Algorithm: 16x Tier 1 Books → 1x Tier 5 Masterpiece",
+                items: [{ id: 'ENCHANTED_BOOK', name: 'Charm 1', variant: 'CHARM;1' }]
+            },
+            bz: {
+                desc: "Market Spreads: High Velocity Buy/Sell Orders",
+                items: [
+                    { id: 'ENCHANTED_RAW_RABBIT', name: 'Enchanted Rabbit' },
+                    { id: 'HALF_EATEN_MUSHROOM', name: 'Half-Eaten Mushroom' },
+                    { id: 'FINE_FLOUR', name: 'Fine Flour' }
+                ]
+            }
         };
 
         function checkCode() {
-            const input = document.getElementById('flipcode').value;
-            const error = document.getElementById('error-msg');
-            
-            if (input === SECRET_CODE) {
+            if (document.getElementById('flipcode').value === SECRET_CODE) {
                 document.getElementById('gate').style.display = 'none';
-                document.getElementById('category-menu').classList.remove('hidden');
-            } else {
-                // If it's wrong, show the error message clearly
-                error.classList.remove('opacity-0');
-                setTimeout(() => error.classList.add('opacity-0'), 3000);
-                document.getElementById('flipcode').value = ''; // Clear input
+                document.getElementById('menu').classList.remove('hidden');
             }
         }
 
-        async function showFlips(category) {
-            document.getElementById('category-menu').classList.add('hidden');
+        async function showFlips(cat) {
+            document.getElementById('menu').classList.add('hidden');
             document.getElementById('vault').classList.remove('hidden');
+            document.getElementById('strategy-desc').innerText = flipData[cat].desc;
             
             const container = document.getElementById('dashboard');
-            container.innerHTML = '<p class="text-stone-400 text-xs tracking-widest animate-pulse">REQUESTING BAZAAR DATA...</p>'; 
+            container.innerHTML = '<div class="col-span-full text-center pixel-font text-2xl animate-pulse">EXTRACTING DATA...</div>';
 
             try {
                 const res = await fetch('https://api.hypixel.net/v2/skyblock/bazaar');
                 const data = await res.json();
-                container.innerHTML = ''; 
+                container.innerHTML = '';
 
-                flipData[category].forEach(item => {
+                flipData[cat].items.forEach(item => {
                     const stats = data.products[item.id].quick_status;
                     const profit = Math.floor(stats.sellPrice - stats.buyPrice);
                     
                     container.innerHTML += `
-                        <div class="bg-white border border-stone-100 p-10 rounded-sm shadow-sm hover:shadow-md transition-all duration-500">
-                            <h2 class="text-sm font-semibold tracking-tight text-stone-800 uppercase mb-1">${item.name}</h2>
-                            <p class="text-[10px] text-stone-400 mb-8 uppercase tracking-widest italic">Live Spread Analysis</p>
-                            <div class="flex justify-between items-baseline">
-                                <span class="text-[9px] text-stone-300 uppercase font-bold tracking-tighter">Est. Margin</span>
-                                <span class="text-2xl font-light tracking-tighter ${profit > 0 ? 'text-emerald-600' : 'text-rose-400'}">
+                        <div class="luxury-box p-8 rounded-2xl border-t-2 border-t-[#d4af37]/20">
+                            <h2 class="pixel-font text-3xl text-[#eaddca] mb-6">${item.name}</h2>
+                            <div class="flex justify-between items-center">
+                                <span class="text-[10px] tracking-[0.3em] text-[#4a3728] font-black uppercase">Net Margin</span>
+                                <span class="text-3xl font-bold ${profit > 0 ? 'text-emerald-500' : 'text-rose-500'} tracking-tighter">
                                     +${profit.toLocaleString()}
                                 </span>
                             </div>
                         </div>
                     `;
                 });
-            } catch (err) {
-                container.innerHTML = '<p class="text-rose-400 text-xs">NETWORK ERROR: API UNREACHABLE</p>';
-            }
+            } catch (e) { container.innerHTML = "API OFFLINE"; }
         }
 
         function backToMenu() {
             document.getElementById('vault').classList.add('hidden');
-            document.getElementById('category-menu').classList.remove('hidden');
+            document.getElementById('menu').classList.remove('hidden');
         }
     </script>
 </body>
