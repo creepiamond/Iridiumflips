@@ -173,11 +173,14 @@
                         const spreadColor = spread >= 0 ? "text-emerald-600" : "text-red-500";
                         const spreadSymbol = spread >= 0 ? "+" : "";
                         const textureId = item.id.toLowerCase();
-                        const textureUrl = `https://raw.githubusercontent.com/rinasu/Skyblock-Personalized-Textures/main/textures/items/${textureId}.png`;
+                        const textureUrl = `https://raw.githubusercontent.com/rinasu/Skyblock-Personalized-Textures/main/textures/items/${textureId.replace(/_/g, '-')}.png`;
                         
                         itemsGrid.innerHTML += `
                             <div class="luxury-box p-8 flex flex-col items-center justify-between min-h-[350px] rounded-none text-center">
-                                <img src="${textureUrl}" onerror="this.src='https://sky.lea.moe/item/${item.id}'" class="w-16 h-16 object-contain mb-4 mx-auto drop-shadow-md">
+<img src="${textureUrl}" 
+     onerror="this.src='https://sky.lea.moe/item/${item.id}'" 
+     class="w-16 h-16 object-contain mb-4 mx-auto block drop-shadow-md" 
+     style="min-height: 64px; min-width: 64px;">
                                 <h2 class="neon-white text-[11px] tracking-[0.2em] uppercase mb-6 bg-stone-800 py-2 px-3 inline-block w-fit mx-auto">
                                     ${item.name}
                                 </h2>
