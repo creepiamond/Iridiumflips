@@ -208,14 +208,14 @@
             </span>
         </div>
 </div>\`;
-            });
 
             container.appendChild(itemsGrid);
         } catch (e) {
             console.error(e);
             container.innerHTML = "API OFFLINE";
         }
-    });
+    }
+});
 }
         function backToMenu() {
             document.getElementById('vault').classList.add('hidden');
