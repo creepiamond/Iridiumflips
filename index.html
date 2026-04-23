@@ -209,7 +209,7 @@
         </div>
 </div>`
 itemsGrid.innerHTML += itemHTML;
-    };
+    });
             container.appendChild(itemsGrid);
         } catch (e) {
             console.error(e);
@@ -217,7 +217,6 @@ itemsGrid.innerHTML += itemHTML;
         }
     });
 }
-
         function backToMenu() {
             document.getElementById('vault').classList.add('hidden');
             document.getElementById('menu').classList.remove('hidden');
