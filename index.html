@@ -214,11 +214,13 @@
     container.appendChild(itemsGrid);
 } catch (e) { 
     container.innerHTML = "API OFFLINE"; 
-}
-                });
-                container.appendChild(itemsGrid);
-            } catch (e) { container.innerHTML = "API OFFLINE"; }
+} catch (e) {
+            container.innerHTML = "API OFFLINE";
         }
+        
+        container.appendChild(itemsGrid);
+    }); // Closes your fetch/event listener
+} // Closes your main function
 
         function backToMenu() {
             document.getElementById('vault').classList.add('hidden');
