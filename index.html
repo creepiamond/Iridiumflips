@@ -208,8 +208,8 @@
             </span>
         </div>
 </div>`
- itemsGrid.innerHTML = itemHTML;
-    });
+itemsGrid.innerHTML += itemHTML;
+    };
             container.appendChild(itemsGrid);
         } catch (e) {
             console.error(e);
