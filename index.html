@@ -177,9 +177,10 @@ const textureUrl = `https://raw.githubusercontent.com/rinasu/Skyblock-Personaliz
 
 itemsGrid.innerHTML += `
     <div class="luxury-box p-8 flex flex-col items-center justify-between min-h-[350px] rounded-none text-center hover:scale-[1.02] transition-all duration-300">
-        <img src="${textureUrl}" 
-             onerror="this.onerror=null; this.src='https://mc-heads.net/item/${item.id.toLowerCase()}';" 
-             class="w-16 h-16 object-contain mb-4 mx-auto block drop-shadow-md">
+    <img src="${textureUrl}" 
+     onerror="this.onerror=null; this.src='https://mc-heads.net/item/${item.id.toLowerCase()}';" 
+     class="w-16 h-16 object-contain mb-4 mx-auto block drop-shadow-md"
+     crossorigin="anonymous">
                                 <h2 class="neon-white text-[11px] tracking-[0.2em] uppercase mb-6 bg-stone-800 py-2 px-3 inline-block w-fit mx-auto">
                                     ${item.name}
                                 </h2>
