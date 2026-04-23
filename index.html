@@ -208,19 +208,16 @@
                 ${spreadSymbol}${spread.toLocaleString()}
             </span>
         </div>
-    </div>`;
-        }
-    });
-    container.appendChild(itemsGrid);
-} catch (e) { 
-    container.innerHTML = "API OFFLINE"; 
-} catch (e) {
+ </div>`;
+            });
+
+            container.appendChild(itemsGrid);
+        } catch (e) {
+            console.error(e);
             container.innerHTML = "API OFFLINE";
         }
-        
-        container.appendChild(itemsGrid);
-    }); // Closes your fetch/event listener
-} // Closes your main function
+    });
+}
 
         function backToMenu() {
             document.getElementById('vault').classList.add('hidden');
