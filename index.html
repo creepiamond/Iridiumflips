@@ -2,89 +2,171 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600&family=Space+Grotesk:wght@300;500&display=swap" rel="stylesheet">
     <title>VAULT | CREEPIAMOND</title>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #FFFDF5; color: #4A4540; overflow-x: hidden; }
-        
-        /* Neon White Light Font */
-        .neon-white { 
-            color: white;
-            text-shadow: 0 0 5px rgba(255,255,255,1), 0 0 10px rgba(255,255,255,0.5), 0 0 2px rgba(0,0,0,0.2); 
+        :root {
+            --accent: #FF9F66;
+            --bg: #fafaf9;
         }
-        
-        .luxury-box {
-            background: #FFFFFF;
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            box-shadow: 0 10px 30px rgba(255, 159, 102, 0.05);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .luxury-box:hover {
-            border-color: rgba(16, 185, 129, 1);
-            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.1);
-            transform: translateY(-3px);
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg); 
+            color: #1c1917; 
+            overflow-x: hidden;
+            background: radial-gradient(circle at 50% 50%, #fffdf5 0%, #f5f5f4 100%);
         }
 
+        /* Architectural Animated Background */
+        .bg-mesh {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.4;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(28,100%,74%,0.15) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(161,68%,73%,0.15) 0, transparent 50%);
+        }
+
+        .neon-white { 
+            color: white;
+            text-shadow: 0 0 12px rgba(255,255,255,0.8);
+        }
+
+        /* Glassmorphism Luxury Box */
+        .luxury-box {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(28, 25, 23, 0.05);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .luxury-box:hover {
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+        }
+
+        /* Magnetic Button Effect */
         .btn-modern {
-            border: 1px solid #FF9F66;
-            background: transparent;
-            color: #FF9F66;
-            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(28, 25, 23, 0.1);
+            transition: all 0.4s ease;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .btn-modern::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 0; height: 0;
+            background: var(--accent);
+            transition: width 0.4s ease, height 0.4s ease;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: -1;
         }
 
         .btn-modern:hover {
-            background: #FF9F66;
             color: white;
-            box-shadow: 0 5px 15px rgba(255, 159, 102, 0.3);
+            border-color: var(--accent);
+        }
+
+        .btn-modern:hover::before {
+            width: 300%;
+            height: 500%;
         }
 
         .square-input {
-            background: #FFFFFF;
-            border: 1px solid #E5E1DA;
-            letter-spacing: 1em;
-            text-indent: 1em;
-            color: #4A4540;
+            background: transparent;
+            border-bottom: 2px solid #e7e5e4;
+            letter-spacing: 0.5em;
+            transition: all 0.3s ease;
         }
 
-        .square-input:focus { border-color: #FF9F66; outline: none; }
+        .square-input:focus { 
+            border-bottom-color: var(--accent);
+            outline: none;
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
+<body class="min-h-screen flex flex-col items-center justify-center p-6">
+    <div class="bg-mesh"></div>
 
-    <div class="fixed top-8 w-full text-center z-50">
-        <p class="text-[10px] tracking-[0.8em] uppercase text-stone-400 font-light">Flips by creepiamond</p>
+    <header class="fixed top-12 w-full text-center z-50">
+        <p class="text-[9px] tracking-[1em] uppercase text-stone-500 font-medium">System Architecture: Creepiamond</p>
+        <div class="h-[1px] w-12 bg-stone-300 mx-auto mt-4"></div>
+    </header>
+
+    <div id="gate" class="text-center w-full max-w-sm fade-in-up">
+        <h1 class="text-4xl tracking-[0.2em] mb-4 font-light uppercase text-stone-900 font-['Space_Grotesk']">Vault</h1>
+        <p class="text-[10px] text-stone-400 mb-12 uppercase tracking-[0.3em]">Encrypted Access Only</p>
+        
+        <div class="relative mb-8">
+            <input type="password" id="flipcode" maxlength="4" placeholder="CODE" 
+                   onkeydown="if(event.key==='Enter') checkCode()" 
+                   class="square-input w-full py-4 text-center text-2xl font-light">
+        </div>
+        
+        <button onclick="checkCode()" class="btn-modern w-full py-5 text-[10px] uppercase tracking-[0.5em] bg-white">
+            Authenticate
+        </button>
+        <p id="error-msg" class="text-rose-500 text-[9px] mt-6 uppercase tracking-widest opacity-0 transition-opacity">Key Invalid - Access Restricted</p>
     </div>
 
-    <div id="gate" class="text-center w-full max-w-sm">
-        <h1 class="text-2xl tracking-[0.4em] mb-12 font-light uppercase text-stone-800">Authentication</h1>
-        <p class="text-[10px] text-stone-400 mb-6 uppercase tracking-widest">Please type the flipcode for secured flips</p>
-        <input type="password" id="flipcode" maxlength="4" placeholder="••••" onkeydown="if(event.key==='Enter') checkCode()" class="square-input w-full py-4 text-center text-xl mb-6">
-        <button onclick="checkCode()" class="btn-modern w-full py-4 text-[10px] uppercase tracking-[0.4em]">Authorize</button>
-        <p id="error-msg" class="text-rose-500 text-[10px] mt-4 uppercase tracking-widest opacity-0 transition-opacity">Access Denied</p>
-    </div>
+    <div id="menu" class="hidden w-full max-w-3xl fade-in-up">
+        <div class="mb-12 text-center">
+            <h2 class="text-[10px] tracking-[0.4em] uppercase text-stone-400">Select Terminal</h2>
+        </div>
+        <div class="grid gap-4">
+            <button onclick="showFlips('crafting')" class="btn-modern p-12 text-left flex justify-between items-center bg-white group">
+                <div class="flex flex-col">
+                    <span class="text-xs text-stone-400 mb-1">01</span>
+                    <span class="text-xl font-light tracking-[0.2em]">CRAFTING ARCHIVE</span>
+                </div>
+                <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-all transform translate-x-4 group-hover:translate-x-0">OPEN INTERFACE</span>
+            </button>
 
-    <div id="menu" class="hidden w-full max-w-2xl animate-in fade-in duration-700">
-        <div class="grid gap-6">
-            <button onclick="showFlips('crafting')" class="btn-modern p-10 text-left flex justify-between items-center group bg-white">
-                <span class="text-lg font-light tracking-widest">CRAFTING</span>
-                <span class="opacity-40 group-hover:opacity-100 group-hover:text-white transition-opacity">SELECT</span>
+            <button onclick="showFlips('combining')" class="btn-modern p-12 text-left flex justify-between items-center bg-white group">
+                <div class="flex flex-col">
+                    <span class="text-xs text-stone-400 mb-1">02</span>
+                    <span class="text-xl font-light tracking-[0.2em]">COMBINING LOGIC</span>
+                </div>
+                <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-all transform translate-x-4 group-hover:translate-x-0">OPEN INTERFACE</span>
             </button>
-            <button onclick="showFlips('combining')" class="btn-modern p-10 text-left flex justify-between items-center group bg-white">
-                <span class="text-lg font-light tracking-widest">COMBINING</span>
-                <span class="opacity-40 group-hover:opacity-100 group-hover:text-white transition-opacity">SELECT</span>
-            </button>
-            <button onclick="showFlips('bz')" class="btn-modern p-10 text-left flex justify-between items-center group bg-white">
-                <span class="text-lg font-light tracking-widest">BUY/SELL FLIPS</span>
-                <span class="opacity-40 group-hover:opacity-100 group-hover:text-white transition-opacity">SELECT</span>
+
+            <button onclick="showFlips('bz')" class="btn-modern p-12 text-left flex justify-between items-center bg-white group">
+                <div class="flex flex-col">
+                    <span class="text-xs text-stone-400 mb-1">03</span>
+                    <span class="text-xl font-light tracking-[0.2em]">MARKET SPREAD</span>
+                </div>
+                <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-all transform translate-x-4 group-hover:translate-x-0">OPEN INTERFACE</span>
             </button>
         </div>
     </div>
 
-    <div id="vault" class="hidden w-full max-w-6xl">
-        <div class="flex justify-between items-center mb-12">
-            <button onclick="backToMenu()" class="text-[10px] tracking-widest text-emerald-600 hover:text-emerald-400 uppercase">← Back to Strategies</button>
+    <div id="vault" class="hidden w-full max-w-7xl animate-in fade-in zoom-in duration-500">
+        <div class="flex justify-between items-center mb-16">
+            <button onclick="backToMenu()" class="text-[9px] tracking-[0.3em] text-stone-400 hover:text-orange-500 transition-colors uppercase border-b border-stone-200 pb-1">
+                ← Return to Terminal
+            </button>
+            <div class="text-[9px] tracking-[0.3em] text-emerald-500 uppercase flex items-center">
+                <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse mr-2"></span> 
+                Live Market Stream
+            </div>
         </div>
         <div id="dashboard" class="grid grid-cols-1 gap-8"></div>
     </div>
@@ -94,17 +176,17 @@
 
         const flipData = {
             crafting: {
-                title: "No Craft Flips Avalaible Right Now :( Maybe Try Quick Bite 1 Craft Flip! For Repice, Type /recipe quick bite In Game Chat!",
+                title: "Optimized crafting pathways for high-margin completion.",
                 items: [{ id: 'ENCHANTED_BOOK:QUICK_BITE:1', name: 'Quick Bite 1' }]
             },
             combining: {
-                title: "Buy Order Tier 1 Book And Combine Into Tier 5 Book And Sell Order",
+                title: "Tier 1 → Tier 5 Volume Synthesis. Focus on Sell-Order Liquidity.",
                 items: [{ id: 'ENCHANTMENT_CHARM_1', name: 'Charm 1' },
                         { id: 'ENCHANTMENT_PROSPERITY_1', name: 'Prosperity 1' },
                         { id: 'ENCHANTMENT_LAPIDARITY_1', name: 'Lapidarity 1' }]
             },
             bz: {
-                title: "Real-time spread analysis for standard high-volume items",
+                title: "Bazaar Spread Analysis. High frequency, standard volume assets.",
                 items: [
                     { id: 'ENCHANTED_RAW_RABBIT', name: 'Enchanted Raw Rabbit' },
                     { id: 'HALF_EATEN_MUSHROOM', name: 'Half-eaten mushroom' },
@@ -129,7 +211,7 @@
             const input = document.getElementById('flipcode').value;
             const error = document.getElementById('error-msg');
             if (input === SECRET_CODE) {
-                document.getElementById('gate').style.display = 'none';
+                document.getElementById('gate').classList.add('hidden');
                 document.getElementById('menu').classList.remove('hidden');
             } else {
                 error.classList.remove('opacity-0');
@@ -143,22 +225,31 @@
             document.getElementById('vault').classList.remove('hidden');
             
             const container = document.getElementById('dashboard');
-            container.innerHTML = '<div class="text-center py-20 tracking-[1em] text-xs animate-pulse text-stone-400">LOADING DATA...</div>';
+            container.innerHTML = `
+                <div class="flex flex-col items-center justify-center py-32 space-y-4">
+                    <div class="w-12 h-12 border-2 border-stone-200 border-t-orange-400 rounded-full animate-spin"></div>
+                    <p class="text-[9px] tracking-[0.5em] text-stone-400 uppercase">Synchronizing with Bazaar API...</p>
+                </div>`;
 
             try {
                 const res = await fetch('https://api.hypixel.net/v2/skyblock/bazaar');
                 const data = await res.json();
                 container.innerHTML = '';
 
-                // Strategy Title Box
+                // Modern Strategy Header
                 container.innerHTML += `
-                    <div class="luxury-box p-8 mb-4 border-l-4 border-l-emerald-500 rounded-none">
-                        <p class="text-xs tracking-widest text-emerald-600 font-bold uppercase mb-2">Strategy</p>
-                        <p class="text-sm font-light leading-relaxed text-stone-600">${flipData[cat].title}</p>
+                    <div class="luxury-box p-12 mb-8 border-l-2 border-l-orange-400 flex flex-col md:flex-row md:items-center justify-between">
+                        <div class="max-w-xl">
+                            <p class="text-[10px] tracking-widest text-orange-500 font-bold uppercase mb-3">Operational Directive</p>
+                            <p class="text-lg font-light leading-relaxed text-stone-800 font-['Space_Grotesk']">${flipData[cat].title}</p>
+                        </div>
+                        <div class="mt-6 md:mt-0 text-[9px] text-stone-400 tracking-widest border border-stone-200 p-4">
+                            ID: SB-VAULT-${cat.toUpperCase()}
+                        </div>
                     </div>`;
 
                 const itemsGrid = document.createElement('div');
-                itemsGrid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4";
+                itemsGrid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6";
                 
                 flipData[cat].items.forEach(item => {
                     const product = data.products[item.id];
@@ -170,43 +261,48 @@
                         const spread = buyPrice - sellPrice;
                         const weeklyBuy = stats.buyMovingWeek || 0;
                         const weeklySell = stats.sellMovingWeek || 0;
-                        const spreadColor = spread >= 0 ? "text-emerald-600" : "text-red-500";
-                        const spreadSymbol = spread >= 0 ? "+" : "";
-const textureId = item.id.toLowerCase().replace(/_/g, '-');
-const textureUrl = `https://sky.shiiyu.moe/item/${item.id}`;
+                        const spreadColor = spread >= 0 ? "text-emerald-600" : "text-rose-500";
+                        const textureUrl = `https://sky.shiiyu.moe/item/${item.id}`;
 
-itemsGrid.innerHTML += `
-    <div class="luxury-box p-8 flex flex-col items-center justify-between min-h-[350px] rounded-none text-center">
-        <img src="${textureUrl}" 
-             onerror="this.onerror=null; this.src='https://mc-heads.net/item/${item.id.toLowerCase()}';" 
-             class="w-16 h-16 object-contain mb-4 mx-auto block drop-shadow-md">
-                                <h2 class="neon-white text-[11px] tracking-[0.2em] uppercase mb-6 bg-stone-800 py-2 px-3 inline-block w-fit mx-auto">
+                        itemsGrid.innerHTML += `
+                            <div class="luxury-box p-8 flex flex-col h-full group">
+                                <div class="flex justify-between items-start mb-8">
+                                    <div class="bg-stone-50 p-4 border border-stone-100 group-hover:border-orange-200 transition-colors">
+                                        <img src="${textureUrl}" 
+                                             onerror="this.onerror=null; this.src='https://mc-heads.net/item/${item.id.toLowerCase()}';" 
+                                             class="w-10 h-10 object-contain">
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="text-[8px] text-stone-400 uppercase tracking-tighter">Market Cap</p>
+                                        <p class="text-[10px] font-medium">${Math.floor(weeklyBuy/1000)}k Vol</p>
+                                    </div>
+                                </div>
+
+                                <h2 class="text-xs font-medium tracking-[0.1em] uppercase mb-8 text-stone-800 border-b border-stone-100 pb-4">
                                     ${item.name}
                                 </h2>
 
-  <div class="space-y-4 text-left w-full px-4">
-            <div class="flex justify-between items-center text-[10px] border-b border-stone-100 pb-2 gap-4">
-                <span class="text-stone-400 uppercase whitespace-nowrap">Buy Order Price</span>
-                <span class="font-semibold text-right">${buyPrice.toLocaleString()}</span>
-            </div>
-            <div class="flex justify-between items-center text-[10px] border-b border-stone-100 pb-2 gap-4">
-                <span class="text-stone-400 uppercase whitespace-nowrap">Sell Order Price</span>
-                <span class="font-semibold text-right">${sellPrice.toLocaleString()}</span>
-            </div>
-            <div class="flex justify-between items-center text-[10px] border-b border-stone-100 pb-2 gap-4">
-                <span class="text-stone-400 uppercase whitespace-nowrap">Weekly Insta Buy</span>
-                <span class="font-semibold text-right">${Math.floor(weeklyBuy).toLocaleString()}</span>
-            </div>
-            <div class="flex justify-between items-center text-[10px] border-b border-stone-100 pb-2 gap-4">
-                <span class="text-stone-400 uppercase whitespace-nowrap">Weekly Insta Sell</span>
-                <span class="font-semibold text-right">${Math.floor(weeklySell).toLocaleString()}</span>
-            </div>
-        </div>
-                                <div class="pt-4 flex justify-between items-baseline w-full border-t border-stone-100 mt-auto">
-                                    <span class="text-[9px] text-emerald-600 font-bold tracking-tighter uppercase">PROFIT PER ITEM</span>
-                                    <span class="text-xl font-light tracking-tighter ${spreadColor}">
-                                        ${spreadSymbol}${spread.toLocaleString()}
-                                    </span>
+                                <div class="space-y-4 mb-8">
+                                    <div class="flex justify-between items-center text-[10px]">
+                                        <span class="text-stone-400 uppercase">Buy Order</span>
+                                        <span class="font-['Space_Grotesk']">${buyPrice.toLocaleString()}</span>
+                                    </div>
+                                    <div class="flex justify-between items-center text-[10px]">
+                                        <span class="text-stone-400 uppercase">Sell Order</span>
+                                        <span class="font-['Space_Grotesk']">${sellPrice.toLocaleString()}</span>
+                                    </div>
+                                </div>
+
+                                <div class="mt-auto pt-6 border-t border-dashed border-stone-200 flex justify-between items-end">
+                                    <div>
+                                        <p class="text-[8px] text-stone-400 uppercase mb-1">Projected Margin</p>
+                                        <p class="text-xl font-light font-['Space_Grotesk'] ${spreadColor}">
+                                            ${spread >= 0 ? '+' : ''}${spread.toLocaleString()}
+                                        </p>
+                                    </div>
+                                    <div class="h-8 w-8 bg-stone-900 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <span class="text-white text-[10px]">↗</span>
+                                    </div>
                                 </div>
                             </div>`;
                     }
@@ -214,8 +310,11 @@ itemsGrid.innerHTML += `
                 container.appendChild(itemsGrid);
 
             } catch (e) {
-                console.error(e);
-                container.innerHTML = '<div class="text-center py-20 text-rose-500 uppercase tracking-widest text-xs">API OFFLINE OR ERROR</div>';
+                container.innerHTML = `
+                    <div class="text-center py-32">
+                        <p class="text-rose-500 text-[10px] tracking-[0.5em] uppercase">Gateway Connection Failed</p>
+                        <button onclick="showFlips('${cat}')" class="mt-4 text-[9px] text-stone-400 underline uppercase">Retry Sync</button>
+                    </div>`;
             }
         }
 
