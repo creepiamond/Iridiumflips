@@ -4,213 +4,176 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <title>FLIPS | CREEPIAMOND</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <title>TERMINAL | CREEPIAMOND</title>
     <style>
         :root { 
-            --bg: #050505;
-            --surface: #0f1115;
+            --bg: #0f1113; 
+            --card-bg: rgba(25, 27, 30, 0.8);
             --accent: #10b981; 
-            --accent-glow: rgba(16, 185, 129, 0.15);
-            --border: rgba(255, 255, 255, 0.05);
-            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
 
         body { 
-            font-family: 'Inter', sans-serif; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
             background: var(--bg);
-            color: #ffffff;
+            color: var(--text-main);
             overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 50% -20%, #1e293b 0%, transparent 50%),
-                radial-gradient(circle at 0% 100%, #064e3b1a 0%, transparent 40%);
         }
 
-        .heading-luxury { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; }
+        /* Moving Luxury Gradient Animation */
+        @keyframes meshGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-        /* Ultra Modern Glass Card */
-        .glass-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+        .animated-gate {
+            background: linear-gradient(-45deg, #16181b, #1f2226, #142821, #16181b);
+            background-size: 400% 400%;
+            animation: meshGradient 15s ease infinite;
             border: 1px solid var(--border);
-            backdrop-filter: blur(12px);
-            border-radius: 24px;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
         }
 
-        .glass-card:hover {
-            border-color: rgba(16, 185, 129, 0.3);
-            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        .luxury-square {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(20px);
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        /* Refined Input */
-        .premium-input {
+        .item-card {
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            aspect-ratio: 1 / 1.1;
+            transition: all 0.4s ease;
+        }
+
+        .item-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .square-input {
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid var(--border);
-            border-radius: 12px;
             color: var(--accent);
-            font-family: 'JetBrains Mono', monospace;
             transition: all 0.3s ease;
         }
 
-        .premium-input:focus {
+        .square-input:focus {
             outline: none;
             border-color: var(--accent);
-            box-shadow: 0 0 0 4px var(--accent-glow);
+            background: rgba(16, 185, 129, 0.05);
         }
 
-        /* Interactive Menu Buttons */
-        .nav-card {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(16, 185, 129, 0.1) 0%, transparent 50%);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .nav-card:hover::before { opacity: 1; }
-
-        /* Animations */
         .reveal { 
             opacity: 0; 
-            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
+            animation: softFadeIn 1s cubic-bezier(0.22, 1, 0.36, 1) forwards; 
         }
-        @keyframes slideUp { 
-            from { opacity: 0; transform: translateY(20px); } 
-            to { opacity: 1; transform: translateY(0); } 
+        @keyframes softFadeIn { 
+            from { opacity: 0; transform: translateY(20px); filter: blur(10px); } 
+            to { opacity: 1; transform: translateY(0); filter: blur(0); } 
         }
 
         .mono { font-family: 'JetBrains Mono', monospace; }
 
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
-
-        .shimmer {
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
-            background-size: 200% 100%;
-            animation: shimmer 2s infinite;
-        }
-        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-thumb { background: var(--accent); }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-6">
+<body class="min-h-screen flex flex-col items-center justify-center p-8">
 
-    <div class="fixed top-0 w-full p-6 flex justify-between items-center z-50 pointer-events-none">
-        <div class="flex items-center gap-4">
-            <div class="h-[1px] w-8 bg-emerald-500/50"></div>
-            <p class="text-[10px] tracking-[0.4em] uppercase text-slate-400 font-medium">System v2.4.0</p>
-        </div>
-        <p class="text-[10px] tracking-[0.4em] uppercase text-slate-400 font-medium">Terminal // Creepiamond</p>
+    <div class="fixed top-10 w-full text-center z-50">
+        <p class="text-[10px] tracking-[1.5em] uppercase text-slate-600 font-black">CREEPIAMOND SECURED TERMINAL</p>
     </div>
 
-    <div id="gate" class="w-full max-w-[400px] reveal">
-        <div class="glass-card p-10 relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-50"></div>
+    <div id="gate" class="w-full max-w-lg reveal">
+        <div class="animated-gate p-16 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent"></div>
             
-            <div class="text-center mb-10">
-                <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-emerald-500/10 mb-6 border border-emerald-500/20">
-                    <svg class="w-6 h-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                </div>
-                <h1 class="heading-luxury text-2xl font-bold mb-2 uppercase tracking-tight">Security Gate</h1>
-                <p class="text-xs text-slate-500 font-medium uppercase tracking-widest">Encrypted Session Required</p>
+            <div class="mb-12 text-center">
+                <h1 class="text-xs font-bold tracking-[0.6em] text-slate-400 uppercase mb-4">Identity Verification</h1>
+                <p class="text-sm text-slate-500 font-medium tracking-tight">Please type the flipcode for secured flips.</p>
             </div>
             
-            <div class="space-y-4">
-                <input type="password" id="flipcode" maxlength="8" placeholder="ENTER ACCESS KEY" 
+            <div class="space-y-8">
+                <input type="password" id="flipcode" maxlength="8" placeholder="TERMINAL ACCESS CODE" 
                        onkeydown="if(event.key==='Enter') checkCode()" 
-                       class="premium-input w-full py-4 px-6 text-center text-lg tracking-[0.4em] placeholder:tracking-normal placeholder:text-slate-700 placeholder:text-xs">
+                       class="square-input w-full py-6 text-center text-lg font-bold tracking-[1em] placeholder:tracking-widest placeholder:text-slate-800 placeholder:text-xs">
                 
                 <button id="auth-btn" onclick="checkCode()" 
-                        class="w-full py-4 bg-emerald-500 text-black text-xs font-bold tracking-[0.2em] uppercase rounded-xl hover:bg-emerald-400 transition-all duration-300 transform active:scale-[0.98]">
-                    Initialize Connection
+                        class="w-full py-5 bg-emerald-500/5 border border-emerald-500/20 text-emerald-500 text-xs font-black tracking-[0.4em] uppercase hover:bg-emerald-500 hover:text-black transition-all duration-700">
+                    ESTABLISH CONNECTION
                 </button>
             </div>
-            <p id="error-msg" class="text-rose-500 text-[10px] text-center mt-6 uppercase tracking-widest opacity-0 font-semibold transition-opacity">Access Protocol Denied</p>
+            <p id="error-msg" class="text-rose-500 text-[10px] text-center mt-6 uppercase tracking-[0.3em] opacity-0 font-bold transition-opacity">Unauthorized Token</p>
         </div>
     </div>
 
-    <div id="menu" class="hidden w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-6 reveal">
-        <button onclick="showFlips('crafting')" class="nav-card glass-card p-10 flex flex-col items-start gap-8 group">
-            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 group-hover:border-emerald-500/50 group-hover:bg-emerald-500/5 transition-all">
-                <svg class="w-6 h-6 text-slate-400 group-hover:text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path></svg>
+    <div id="menu" class="hidden w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-10 reveal">
+        <button onclick="showFlips('crafting')" class="luxury-square p-14 flex flex-col items-center gap-8 group">
+            <div class="w-10 h-10 border border-emerald-500/20 flex items-center justify-center group-hover:border-emerald-500 transition-colors duration-500">
+                <div class="w-5 h-5 border-2 border-emerald-500/10 border-t-emerald-500 rounded-full animate-spin"></div>
             </div>
-            <div>
-                <h3 class="heading-luxury text-xl font-bold mb-1">CRAFTING</h3>
-                <p class="text-[10px] text-slate-500 font-bold tracking-[0.2em] uppercase">High Margin Assembly</p>
-            </div>
-        </button>
-
-        <button onclick="showFlips('combining')" class="nav-card glass-card p-10 flex flex-col items-start gap-8 group">
-            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 group-hover:border-emerald-500/50 group-hover:bg-emerald-500/5 transition-all">
-                <svg class="w-6 h-6 text-slate-400 group-hover:text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-            </div>
-            <div>
-                <h3 class="heading-luxury text-xl font-bold mb-1">COMBINING</h3>
-                <p class="text-[10px] text-slate-500 font-bold tracking-[0.2em] uppercase">Synth-Asset Optimization</p>
+            <div class="text-center">
+                <span class="block text-2xl font-black tracking-tighter text-slate-200">CRAFTING</span>
+                <span class="text-[9px] text-emerald-500/40 font-bold tracking-[0.5em] uppercase mt-2 block">Alpha System</span>
             </div>
         </button>
 
-        <button onclick="showFlips('bz')" class="nav-card glass-card p-10 flex flex-col items-start gap-8 group">
-            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 group-hover:border-emerald-500/50 group-hover:bg-emerald-500/5 transition-all">
-                <svg class="w-6 h-6 text-slate-400 group-hover:text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+        <button onclick="showFlips('combining')" class="luxury-square p-14 flex flex-col items-center gap-8 group">
+            <div class="w-10 h-10 border border-emerald-500/20 flex items-center justify-center group-hover:border-emerald-500 transition-colors duration-500">
+                <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" stroke-width="1.5"/></svg>
             </div>
-            <div>
-                <h3 class="heading-luxury text-xl font-bold mb-1">BAZAAR</h3>
-                <p class="text-[10px] text-slate-500 font-bold tracking-[0.2em] uppercase">Real-Time Spread Analysis</p>
+            <div class="text-center">
+                <span class="block text-2xl font-black tracking-tighter text-slate-200">COMBINING</span>
+                <span class="text-[9px] text-emerald-500/40 font-bold tracking-[0.5em] uppercase mt-2 block">Beta System</span>
+            </div>
+        </button>
+
+        <button onclick="showFlips('bz')" class="luxury-square p-14 flex flex-col items-center gap-8 group">
+            <div class="w-10 h-10 border border-emerald-500/20 flex items-center justify-center group-hover:border-emerald-500 transition-colors duration-500">
+                <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" stroke-width="1.5"/></svg>
+            </div>
+            <div class="text-center">
+                <span class="block text-2xl font-black tracking-tighter text-slate-200">BAZAAR</span>
+                <span class="text-[9px] text-emerald-500/40 font-bold tracking-[0.5em] uppercase mt-2 block">Gamma System</span>
             </div>
         </button>
     </div>
 
-    <div id="interface" class="hidden w-full max-w-[1400px] reveal">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
-            <div>
-                <button onclick="backToMenu()" class="group flex items-center gap-3 text-slate-500 hover:text-white transition-all mb-4">
-                    <span class="p-2 rounded-lg border border-white/5 group-hover:border-emerald-500/50">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                    </span>
-                    <span class="text-[10px] font-bold tracking-[0.2em] uppercase">Back to Terminal</span>
-                </button>
-                <h2 class="heading-luxury text-4xl font-bold">Market Intelligence</h2>
-            </div>
-            <div class="glass-card px-6 py-4 flex items-center gap-4">
-                <div class="relative flex items-center justify-center">
-                    <div class="absolute w-3 h-3 bg-emerald-500 rounded-full animate-ping"></div>
-                    <div class="relative w-2 h-2 bg-emerald-500 rounded-full"></div>
-                </div>
-                <div>
-                    <p class="text-[10px] font-bold text-emerald-500 tracking-widest uppercase">Live Pulse</p>
-                    <p class="text-[9px] text-slate-500 mono">FETCHING_BAZAAR_API_v2</p>
-                </div>
+    <div id="interface" class="hidden w-full max-w-[95rem] reveal">
+        <div class="flex justify-between items-center mb-12 px-2">
+            <button onclick="backToMenu()" class="text-[10px] font-black tracking-[0.4em] text-slate-500 hover:text-emerald-400 transition-all flex items-center gap-4">
+                <span class="w-8 h-8 border border-slate-800 flex items-center justify-center">←</span>
+                RETURN TO HUB
+            </button>
+            <div class="px-6 py-2 border border-emerald-500/20 bg-emerald-500/5">
+                <span class="text-[10px] font-black text-emerald-400 tracking-[0.3em] uppercase">SYSTEM ONLINE</span>
             </div>
         </div>
-        <div id="dashboard" class="grid grid-cols-1 gap-8"></div>
+        <div id="dashboard" class="grid grid-cols-1 gap-10"></div>
     </div>
 
     <script>
         const flipData = {
             crafting: {
-                title: "No craft flips available right now. Try the Quick Bite 1 craft flip: type /recipe quick bite in game chat.",
+                title: "Real-time crafting arbitrage. Currently scanning for high-margin recipes.",
                 items: [{ id: 'ENCHANTED_BOOK:QUICK_BITE:1', name: 'Quick Bite 1' }]
             },
             combining: {
-                title: "Synthesize Tier 1 assets into Tier 5 variants for maximum market liquidation.",
+                title: "Enchantment synthesis. Acquire Tier 1 assets and upgrade for terminal profit.",
                 items: [{ id: 'ENCHANTMENT_CHARM_1', name: 'Charm 1' },
                         { id: 'ENCHANTMENT_PROSPERITY_1', name: 'Prosperity 1' },
                         { id: 'ENCHANTMENT_LAPIDARITY_1', name: 'Lapidarity 1' }]
             },
             bz: {
-                title: "High-velocity asset spreads detected. Prioritize volume-heavy nodes.",
+                title: "High-velocity Bazaar spreads. Prioritizing instant liquidity assets.",
                 items: [
                     { id: 'ENCHANTED_RAW_RABBIT', name: 'Enchanted Raw Rabbit' }, { id: 'HALF_EATEN_MUSHROOM', name: 'Half-eaten mushroom' },
                     { id: 'FINE_FLOUR', name: 'Fine flour' }, { id: 'ENCHANTED_PORK', name: 'Enchanted Raw Pork' },
@@ -228,7 +191,7 @@
             const inputField = document.getElementById('flipcode');
             const authBtn = document.getElementById('auth-btn');
             const error = document.getElementById('error-msg');
-            authBtn.innerText = "VERIFYING...";
+            authBtn.innerText = "AUTHENTICATING...";
             
             try {
                 const response = await fetch('/api/check', {
@@ -242,7 +205,7 @@
                     document.getElementById('menu').classList.remove('hidden');
                 } else { throw new Error(); }
             } catch (e) {
-                authBtn.innerText = "INITIALIZE CONNECTION";
+                authBtn.innerText = "ESTABLISH CONNECTION";
                 error.classList.remove('opacity-0');
                 setTimeout(() => error.classList.add('opacity-0'), 2000);
                 inputField.value = '';
@@ -254,27 +217,23 @@
             document.getElementById('interface').classList.remove('hidden');
             const container = document.getElementById('dashboard');
             
-            container.innerHTML = `
-                <div class="flex flex-col items-center justify-center py-40 gap-6">
-                    <div class="w-10 h-10 border-2 border-emerald-500/20 border-t-emerald-500 rounded-full animate-spin"></div>
-                    <p class="text-[10px] tracking-[0.4em] text-emerald-500 uppercase font-bold">Synchronizing Data Streams</p>
-                </div>`;
+            container.innerHTML = `<div class="py-40 flex flex-col items-center gap-6">
+                <div class="w-16 h-16 border border-emerald-500/20 border-t-emerald-500 animate-spin"></div>
+                <p class="text-[10px] tracking-[1em] text-emerald-500 font-black">SYNCING MARKET DATA</p>
+            </div>`;
 
             try {
                 const res = await fetch('https://api.hypixel.net/v2/skyblock/bazaar');
                 const data = await res.json();
                 
                 container.innerHTML = `
-                    <div class="glass-card p-8 border-l-4 border-l-emerald-500 mb-8">
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="w-1 h-1 bg-emerald-500 rounded-full"></span>
-                            <p class="text-[10px] font-bold text-emerald-500 uppercase tracking-widest">Operational Directive</p>
-                        </div>
-                        <p class="text-xl font-medium text-slate-200">${flipData[cat].title}</p>
+                    <div class="luxury-square p-10 border-l-8 border-l-emerald-500 mb-6">
+                        <p class="text-[10px] font-black text-emerald-500 uppercase tracking-[0.5em] mb-4">Strategic Intelligence</p>
+                        <p class="text-2xl font-light text-slate-300 tracking-tight">${flipData[cat].title}</p>
                     </div>`;
 
                 const itemsGrid = document.createElement('div');
-                itemsGrid.className = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6";
+                itemsGrid.className = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8";
                 
                 flipData[cat].items.forEach(item => {
                     const product = data.products[item.id];
@@ -282,50 +241,45 @@
 
                     if (stats) {
                         const spread = Math.floor(stats.buyPrice - stats.sellPrice);
-                        let textureId = item.id;
-                        if(textureId.includes("ENCHANTED_BOOK")) textureId = "ENCHANTED_BOOK";
                         const textureUrl = `https://sky.shiiyu.moe/item/${item.id}`;
 
                         itemsGrid.innerHTML += `
-                            <div class="glass-card p-6 flex flex-col group reveal hover:-translate-y-1">
-                                <div class="flex justify-center mb-6 relative py-4">
-                                    <div class="absolute inset-0 bg-emerald-500/5 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                    <img src="${textureUrl}" class="w-12 h-12 object-contain relative z-10 transition-transform duration-500 group-hover:scale-110" 
-                                         onerror="this.src='https://mc-heads.net/item/${textureId}'">
+                            <div class="luxury-square item-card p-8 flex flex-col group reveal">
+                                <div class="flex justify-center mb-10 relative">
+                                    <div class="absolute inset-0 bg-emerald-500/10 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                    <img src="${textureUrl}" class="w-20 h-20 object-contain relative z-10 transition-transform duration-700 group-hover:scale-110" 
+                                         onerror="this.src='https://mc-heads.net/item/${item.id}'">
                                 </div>
 
-                                <div class="mb-6">
-                                    <h2 class="text-xs font-bold uppercase tracking-tight text-white mb-1 group-hover:text-emerald-400 transition-colors truncate">${item.name}</h2>
-                                    <p class="text-[9px] text-slate-600 mono font-medium truncate">${item.id}</p>
+                                <div class="text-center mb-8">
+                                    <h2 class="text-sm font-black uppercase tracking-widest text-slate-100 group-hover:text-emerald-400 transition-colors">${item.name}</h2>
+                                    <p class="text-[9px] text-slate-700 mt-2 mono font-bold">${item.id}</p>
                                 </div>
 
-                                <div class="space-y-2 mb-6 bg-black/20 p-4 rounded-xl border border-white/5">
-                                    <div class="flex justify-between items-center text-[10px]">
-                                        <span class="text-slate-500 font-medium">Buy Price</span>
-                                        <span class="mono text-slate-200">${Math.floor(stats.buyPrice).toLocaleString()}</span>
+                                <div class="space-y-4 mb-8 border-y border-white/5 py-6">
+                                    <div class="flex justify-between items-center text-[11px]">
+                                        <span class="text-slate-500 font-bold uppercase tracking-tighter">Buy Order Price</span>
+                                        <span class="mono text-white font-bold">${Math.floor(stats.buyPrice).toLocaleString()}</span>
+                                    </div>
+                                    <div class="flex justify-between items-center text-[11px]">
+                                        <span class="text-slate-500 font-bold uppercase tracking-tighter">Sell Order Price</span>
+                                        <span class="mono text-white font-bold">${Math.floor(stats.sellPrice).toLocaleString()}</span>
+                                    </div>
+                                    <div class="flex justify-between items-center text-[10px] pt-2">
+                                        <span class="text-slate-600 font-medium uppercase tracking-tighter">Weekly Insta Buy</span>
+                                        <span class="mono text-slate-400">${Math.round(stats.buyVolume/1000)}k</span>
                                     </div>
                                     <div class="flex justify-between items-center text-[10px]">
-                                        <span class="text-slate-500 font-medium">Sell Price</span>
-                                        <span class="mono text-slate-200">${Math.floor(stats.sellPrice).toLocaleString()}</span>
-                                    </div>
-                                    <div class="pt-2 mt-2 border-t border-white/5 flex justify-between items-center text-[9px]">
-                                        <span class="text-slate-600 uppercase font-bold">Vol. 24h</span>
-                                        <span class="mono text-slate-400">${Math.round(stats.buyVolume/1000)}k / ${Math.round(stats.sellVolume/1000)}k</span>
+                                        <span class="text-slate-600 font-medium uppercase tracking-tighter">Weekly Insta Sell</span>
+                                        <span class="mono text-slate-400">${Math.round(stats.sellVolume/1000)}k</span>
                                     </div>
                                 </div>
 
                                 <div class="mt-auto">
-                                    <div class="flex justify-between items-end">
-                                        <div>
-                                            <p class="text-[8px] text-emerald-500/60 font-bold uppercase tracking-widest mb-1">Spread Net</p>
-                                            <p class="text-xl font-bold tracking-tighter text-emerald-500 mono">
-                                                +${spread.toLocaleString()}
-                                            </p>
-                                        </div>
-                                        <div class="h-8 w-8 bg-emerald-500/10 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
-                                        </div>
-                                    </div>
+                                    <p class="text-[9px] text-emerald-500/40 font-black uppercase mb-2 tracking-widest">Est. Net Profit</p>
+                                    <p class="text-3xl font-black tracking-tighter text-emerald-500 mono">
+                                        +${spread.toLocaleString()}
+                                    </p>
                                 </div>
                             </div>`;
                     }
@@ -333,10 +287,7 @@
                 container.appendChild(itemsGrid);
 
             } catch (e) {
-                container.innerHTML = `
-                    <div class="glass-card p-12 text-center border-rose-500/20">
-                        <p class="text-rose-500 uppercase tracking-[0.2em] text-xs font-bold">Protocol Error: Connection to Hypixel API Failed</p>
-                    </div>`;
+                container.innerHTML = '<div class="text-center py-40 text-rose-500 font-black uppercase tracking-[0.5em]">SYSTEM ERROR: FEED OFFLINE</div>';
             }
         }
 
@@ -344,18 +295,6 @@
             document.getElementById('interface').classList.add('hidden');
             document.getElementById('menu').classList.remove('hidden');
         }
-
-        
-        // Add magnetic mouse effect to cards
-        document.addEventListener('mousemove', e => {
-            document.querySelectorAll('.nav-card').forEach(card => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.setProperty('--x', `${x}px`);
-                card.style.setProperty('--y', `${y}px`);
-            });
-        });
     </script>
 </body>
 </html>
