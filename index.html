@@ -2,70 +2,163 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <title>VAULT | CREEPIAMOND</title>
     <style>
-        :root { --bg:#0f1117; --text:#f7f3ec; --muted:rgba(247,243,236,.58); --accent:#f2a65a; --accent-2:#34d399; --border:rgba(255,255,255,.14); }
-        * { box-sizing: border-box; }
-        body { font-family:'Inter',sans-serif; color:var(--text); overflow-x:hidden; background:radial-gradient(circle at 20% 12%,rgba(242,166,90,.20),transparent 34%),radial-gradient(circle at 82% 18%,rgba(52,211,153,.13),transparent 30%),radial-gradient(circle at 50% 95%,rgba(99,102,241,.11),transparent 38%),linear-gradient(135deg,#0b0d12 0%,#151821 48%,#0e1016 100%); }
-        body::before { content:""; position:fixed; inset:0; pointer-events:none; background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px); background-size:48px 48px; mask-image:radial-gradient(circle at center,black,transparent 78%); }
-        body::after { content:""; position:fixed; inset:0; pointer-events:none; background:linear-gradient(120deg,transparent,rgba(255,255,255,.045),transparent); animation:sheen 8s ease-in-out infinite; }
-        @keyframes sheen { 0%,100%{transform:translateX(-120%);opacity:0} 45%,55%{opacity:1} 100%{transform:translateX(120%)} }
-        @keyframes floatIn { from{opacity:0;transform:translateY(16px) scale(.98)} to{opacity:1;transform:translateY(0) scale(1)} }
-        @keyframes softPulse { 0%,100%{box-shadow:0 0 0 rgba(242,166,90,0)} 50%{box-shadow:0 0 36px rgba(242,166,90,.13)} }
-        #gate,#menu,#vault { animation:floatIn .65s ease both; }
-        .neon-white { color:#fffaf0; text-shadow:0 0 14px rgba(242,166,90,.28); }
-        .luxury-box { position:relative; overflow:hidden; background:linear-gradient(180deg,rgba(255,255,255,.105),rgba(255,255,255,.055)); border:1px solid var(--border); box-shadow:0 24px 70px rgba(0,0,0,.26); backdrop-filter:blur(18px); border-radius:24px; transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease,background .35s ease; }
-        .luxury-box::before { content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(135deg,rgba(255,255,255,.14),transparent 42%); opacity:.55; }
-        .luxury-box:hover { border-color:rgba(242,166,90,.45); box-shadow:0 30px 85px rgba(0,0,0,.34),0 0 35px rgba(242,166,90,.08); transform:translateY(-5px); }
-        .btn-modern { position:relative; overflow:hidden; border:1px solid rgba(242,166,90,.38); background:linear-gradient(180deg,rgba(255,255,255,.095),rgba(255,255,255,.045)); color:#fff6e8; border-radius:18px; box-shadow:0 18px 45px rgba(0,0,0,.24); backdrop-filter:blur(16px); transition:transform .28s ease,border-color .28s ease,box-shadow .28s ease,background .28s ease; }
-        .btn-modern::after { content:""; position:absolute; inset:0; transform:translateX(-120%); background:linear-gradient(90deg,transparent,rgba(255,255,255,.16),transparent); transition:transform .6s ease; }
-        .btn-modern:hover { background:linear-gradient(135deg,rgba(242,166,90,.95),rgba(255,206,145,.85)); border-color:rgba(255,255,255,.36); color:#16120e; box-shadow:0 22px 60px rgba(242,166,90,.22); transform:translateY(-3px); }
-        .btn-modern:hover::after { transform:translateX(120%); }
-        .square-input { background:rgba(255,255,255,.075); border:1px solid rgba(255,255,255,.16); border-radius:18px; letter-spacing:.9em; text-indent:.9em; color:var(--text); box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 18px 40px rgba(0,0,0,.18); backdrop-filter:blur(14px); transition:border-color .25s ease,box-shadow .25s ease,background .25s ease; }
-        .square-input::placeholder { color:rgba(247,243,236,.33); }
-        .square-input:focus { border-color:rgba(242,166,90,.75); outline:none; background:rgba(255,255,255,.105); animation:softPulse 1.8s ease infinite; }
-        #auth-btn { font-weight:800; } #error-msg { color:#fb7185; }
-        img { transition:transform .35s ease,filter .35s ease; } .luxury-box:hover img { transform:translateY(-4px) scale(1.05); filter:drop-shadow(0 18px 22px rgba(0,0,0,.35)); }
+        :root { 
+            --bg: #090a0f; 
+            --surface: #11141d;
+            --accent: #10b981; 
+            --accent-glow: rgba(16, 185, 129, 0.25);
+            --border: rgba(255, 255, 255, 0.08);
+            --text-muted: rgba(156, 163, 175, 0.6);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: var(--bg);
+            color: #f8fafc;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(16, 185, 129, 0.05) 0%, transparent 40%);
+        }
+
+        /* Moving Glass Sheen */
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(125deg, transparent 40%, rgba(255,255,255,0.03) 50%, transparent 60%);
+            background-size: 200% 200%;
+            animation: moveSheen 12s linear infinite;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        @keyframes moveSheen { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+        .luxury-card {
+            background: linear-gradient(165deg, rgba(20, 24, 35, 0.8), rgba(13, 16, 23, 0.95));
+            border: 1px solid var(--border);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .luxury-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-10px);
+            box-shadow: 0 40px 80px -20px rgba(0,0,0,0.5), 0 0 30px var(--accent-glow);
+        }
+
+        .btn-action {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            transition: all 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-action:hover {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 15px 30px var(--accent-glow);
+            transform: scale(1.02);
+            border-color: transparent;
+        }
+
+        .premium-input {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            transition: all 0.3s ease;
+            color: var(--accent);
+        }
+
+        .premium-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 25px var(--accent-glow);
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-reveal { animation: fadeInUp 0.8s cubic-bezier(0.2, 1, 0.3, 1) both; }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
+<body class="min-h-screen flex items-center justify-center p-8">
 
-    <div class="fixed top-8 w-full text-center z-50">
-        <p class="text-[10px] tracking-[0.8em] uppercase text-white/45 font-semibold">Flips by creepiamond</p>
+    <div class="fixed top-12 w-full text-center z-50">
+        <p class="text-[11px] tracking-[1.4em] uppercase text-white/20 font-bold">FLIPS BY CREEPIAMOND</p>
     </div>
 
-    <div id="gate" class="text-center w-full max-w-sm">
-        <h1 class="text-2xl tracking-[0.4em] mb-12 font-light uppercase text-white">Authentication</h1>
-        <p class="text-[10px] text-white/45 mb-6 uppercase tracking-widest">Please type the flipcode for secured flips</p>
-        <input type="password" id="flipcode" maxlength="8" placeholder="••••" onkeydown="if(event.key==='Enter') checkCode()" class="square-input w-full py-4 text-center text-xl mb-6">
-        <button id="auth-btn" onclick="checkCode()" class="btn-modern w-full py-4 text-[10px] uppercase tracking-[0.4em]">Authorize</button>
-        <p id="error-msg" class="text-rose-500 text-[10px] mt-4 uppercase tracking-widest opacity-0 transition-opacity">Access Denied</p>
-    </div>
-
-    <div id="menu" class="hidden w-full max-w-2xl animate-in fade-in duration-700">
-        <div class="grid gap-6">
-            <button onclick="showFlips('crafting')" class="btn-modern p-10 text-left flex justify-between items-center group">
-                <span class="text-lg font-light tracking-widest">CRAFTING</span>
-                <span class="opacity-40 group-hover:opacity-100 group-hover:text-white transition-opacity">SELECT</span>
+    <div id="gate" class="w-full max-w-md animate-reveal">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-extrabold tracking-tighter mb-4 italic">VAULT<span class="text-emerald-500">.</span></h1>
+            <div class="h-1 w-12 bg-emerald-500 mx-auto rounded-full"></div>
+        </div>
+        
+        <div class="luxury-card p-10 space-y-8">
+            <div class="space-y-2">
+                <p class="text-[10px] text-white/30 uppercase tracking-[0.4em] font-bold text-center">Security Protocol Required</p>
+                <input type="password" id="flipcode" maxlength="8" placeholder="••••" onkeydown="if(event.key==='Enter') checkCode()" 
+                       class="premium-input w-full py-6 text-center text-3xl font-bold tracking-[0.6em]">
+            </div>
+            
+            <button id="auth-btn" onclick="checkCode()" class="btn-action w-full py-6 text-[11px] uppercase tracking-[0.5em]">
+                Initialize Connection
             </button>
-            <button onclick="showFlips('combining')" class="btn-modern p-10 text-left flex justify-between items-center group">
-                <span class="text-lg font-light tracking-widest">COMBINING</span>
-                <span class="opacity-40 group-hover:opacity-100 group-hover:text-white transition-opacity">SELECT</span>
-            </button>
-            <button onclick="showFlips('bz')" class="btn-modern p-10 text-left flex justify-between items-center group">
-                <span class="text-lg font-light tracking-widest">BUY/SELL FLIPS</span>
-                <span class="opacity-40 group-hover:opacity-100 group-hover:text-white transition-opacity">SELECT</span>
-            </button>
+            <p id="error-msg" class="text-rose-500 text-[10px] text-center uppercase tracking-widest opacity-0 transition-opacity font-bold">Access Revoked: Invalid Token</p>
         </div>
     </div>
 
-    <div id="vault" class="hidden w-full max-w-6xl">
+    <div id="menu" class="hidden w-full max-w-4xl grid grid-cols-1 md:grid-cols-3 gap-8 animate-reveal">
+        <button onclick="showFlips('crafting')" class="luxury-card p-12 flex flex-col items-center gap-6 group">
+            <div class="p-4 rounded-2xl bg-white/5 border border-white/5 group-hover:border-emerald-500/50 transition-colors">
+                <div class="w-8 h-8 rounded-full border-2 border-emerald-500/30 border-t-emerald-500 animate-spin"></div>
+            </div>
+            <span class="text-xl font-bold tracking-tight">CRAFTING</span>
+            <span class="text-[9px] text-emerald-500/50 font-bold tracking-widest">SUB-TERMINAL 01</span>
+        </button>
+        <button onclick="showFlips('combining')" class="luxury-card p-12 flex flex-col items-center gap-6 group">
+            <div class="p-4 rounded-2xl bg-white/5 border border-white/5 group-hover:border-emerald-500/50 transition-colors text-emerald-500">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+            </div>
+            <span class="text-xl font-bold tracking-tight">COMBINING</span>
+            <span class="text-[9px] text-emerald-500/50 font-bold tracking-widest">SUB-TERMINAL 02</span>
+        </button>
+        <button onclick="showFlips('bz')" class="luxury-card p-12 flex flex-col items-center gap-6 group">
+            <div class="p-4 rounded-2xl bg-white/5 border border-white/5 group-hover:border-emerald-500/50 transition-colors text-emerald-500">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+            </div>
+            <span class="text-xl font-bold tracking-tight">BAZAAR</span>
+            <span class="text-[9px] text-emerald-500/50 font-bold tracking-widest">SUB-TERMINAL 03</span>
+        </button>
+    </div>
+
+    <div id="vault" class="hidden w-full max-w-7xl">
         <div class="flex justify-between items-center mb-12">
-            <button onclick="backToMenu()" class="text-[10px] tracking-widest text-emerald-300 hover:text-amber-200 uppercase">← Back to Strategies</button>
+            <button onclick="backToMenu()" class="text-[10px] font-bold tracking-[0.4em] text-white/30 hover:text-emerald-400 transition-colors uppercase flex items-center gap-4 group">
+                <span class="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center group-hover:border-emerald-500">←</span>
+                Back to Terminal
+            </button>
+            <div class="px-6 py-2 rounded-full border border-emerald-500/20 bg-emerald-500/5">
+                <p class="text-[9px] text-emerald-400 font-bold tracking-[0.2em] uppercase">Market Pulse: Active</p>
+            </div>
         </div>
-        <div id="dashboard" class="grid grid-cols-1 gap-8"></div>
+        <div id="dashboard" class="grid grid-cols-1 gap-10"></div>
     </div>
 
     <script>
@@ -75,28 +168,21 @@
                 items: [{ id: 'ENCHANTED_BOOK:QUICK_BITE:1', name: 'Quick Bite 1' }]
             },
             combining: {
-                title: "Create a buy order for Tier 1 books, combine them into Tier 5 books, then sell order for profit.",
+                title: "Market Strategy: Mass-buy T1 books. Synthesize into T5 variants. Liquidate for high-margin gains.",
                 items: [{ id: 'ENCHANTMENT_CHARM_1', name: 'Charm 1' },
                         { id: 'ENCHANTMENT_PROSPERITY_1', name: 'Prosperity 1' },
                         { id: 'ENCHANTMENT_LAPIDARITY_1', name: 'Lapidarity 1' }]
             },
             bz: {
-                title: "Real-time spread analysis for standard high-volume bazaar items.",
+                title: "Operational Status: Scanning real-time spreads for high-velocity Bazaar assets.",
                 items: [
-                    { id: 'ENCHANTED_RAW_RABBIT', name: 'Enchanted Raw Rabbit' },
-                    { id: 'HALF_EATEN_MUSHROOM', name: 'Half-eaten mushroom' },
-                    { id: 'FINE_FLOUR', name: 'Fine flour' },
-                    { id: 'ENCHANTED_PORK', name: 'Enchanted Raw Pork' },
-                    { id: 'TUNGSTEN_KEY', name: 'Tungsten Key' },
-                    { id: 'UMBER_KEY', name: 'Umber Key' },
-                    { id: 'ENCHANTMENT_THUNDERBOLT_7', name: 'Thunderbolt 7' },
-                    { id: 'ENCHANTMENT_THUNDERLORD_7', name: 'Thunderlord 7' },
-                    { id: 'ENCHANTMENT_FIRE_PROTECTION_7', name: 'Fire Protection 7' },
-                    { id: 'BUSTED_BELT_BUCKLE', name: 'Busted Belt Buckle' },
-                    { id: 'RUSTY_COIN', name: 'Rusty Coin' },
-                    { id: 'HOTSPOT_BAIT', name: 'Hotspot Bait' },
-                    { id: 'ENCHANTED_TUNGSTEN', name: 'Enchanted Tungsten' },
-                    { id: 'ENCHANTED_UMBER', name: 'Enchanted Umber' },
+                    { id: 'ENCHANTED_RAW_RABBIT', name: 'Enchanted Raw Rabbit' }, { id: 'HALF_EATEN_MUSHROOM', name: 'Half-eaten mushroom' },
+                    { id: 'FINE_FLOUR', name: 'Fine flour' }, { id: 'ENCHANTED_PORK', name: 'Enchanted Raw Pork' },
+                    { id: 'TUNGSTEN_KEY', name: 'Tungsten Key' }, { id: 'UMBER_KEY', name: 'Umber Key' },
+                    { id: 'ENCHANTMENT_THUNDERBOLT_7', name: 'Thunderbolt 7' }, { id: 'ENCHANTMENT_THUNDERLORD_7', name: 'Thunderlord 7' },
+                    { id: 'ENCHANTMENT_FIRE_PROTECTION_7', name: 'Fire Protection 7' }, { id: 'BUSTED_BELT_BUCKLE', name: 'Busted Belt Buckle' },
+                    { id: 'RUSTY_COIN', name: 'Rusty Coin' }, { id: 'HOTSPOT_BAIT', name: 'Hotspot Bait' },
+                    { id: 'ENCHANTED_TUNGSTEN', name: 'Enchanted Tungsten' }, { id: 'ENCHANTED_UMBER', name: 'Enchanted Umber' },
                     { id: 'KADA_LEAD', name: 'Kada Lead' }
                 ]
             }
@@ -106,8 +192,7 @@
             const inputField = document.getElementById('flipcode');
             const authBtn = document.getElementById('auth-btn');
             const error = document.getElementById('error-msg');
-            const originalText = authBtn.innerText;
-            authBtn.innerText = "VERIFYING...";
+            authBtn.innerText = "BYPASSING SECURITY...";
             
             try {
                 const response = await fetch('/api/check', {
@@ -121,7 +206,7 @@
                     document.getElementById('menu').classList.remove('hidden');
                 } else { throw new Error(); }
             } catch (e) {
-                authBtn.innerText = originalText;
+                authBtn.innerText = "INITIALIZE CONNECTION";
                 error.classList.remove('opacity-0');
                 setTimeout(() => error.classList.add('opacity-0'), 2000);
                 inputField.value = '';
@@ -131,75 +216,65 @@
         async function showFlips(cat) {
             document.getElementById('menu').classList.add('hidden');
             document.getElementById('vault').classList.remove('hidden');
-            
             const container = document.getElementById('dashboard');
-            container.innerHTML = '<div class="text-center py-20 tracking-[1em] text-xs animate-pulse text-white/45">LOADING DATA...</div>';
+            container.innerHTML = `
+                <div class="flex flex-col items-center justify-center py-40 space-y-6">
+                    <div class="w-16 h-16 rounded-full border-4 border-emerald-500/20 border-t-emerald-500 animate-spin"></div>
+                    <p class="text-[10px] tracking-[1em] text-emerald-500 uppercase font-bold">Synchronizing Data</p>
+                </div>`;
 
             try {
                 const res = await fetch('https://api.hypixel.net/v2/skyblock/bazaar');
                 const data = await res.json();
-                container.innerHTML = '';
-
-                // Strategy Title Box
-                container.innerHTML += `
-                    <div class="luxury-box p-8 mb-4 border-l-4 border-l-emerald-400">
-                        <p class="text-xs tracking-widest text-emerald-300 font-bold uppercase mb-2">Strategy</p>
-                        <p class="text-sm font-light leading-relaxed text-white/70">${flipData[cat].title}</p>
+                container.innerHTML = `
+                    <div class="luxury-card p-12 mb-8 border-l-4 border-l-emerald-500">
+                        <h3 class="text-emerald-500 font-bold uppercase tracking-[0.4em] text-[10px] mb-4">Strategic Brief</h3>
+                        <p class="text-2xl font-light text-white/80 leading-relaxed">${flipData[cat].title}</p>
                     </div>`;
 
                 const itemsGrid = document.createElement('div');
-                itemsGrid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4";
+                itemsGrid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8";
                 
                 flipData[cat].items.forEach(item => {
                     const product = data.products[item.id];
                     const stats = product?.quick_status;
 
                     if (stats) {
-                        const buyPrice = Math.floor(stats.buyPrice);
-                        const sellPrice = Math.floor(stats.sellPrice);
-                        const spread = buyPrice - sellPrice;
-                        const weeklyBuy = stats.buyMovingWeek || 0;
-                        const weeklySell = stats.sellMovingWeek || 0;
-                        const spreadColor = spread >= 0 ? "text-emerald-300" : "text-rose-400";
-                        const spreadSymbol = spread >= 0 ? "+" : "";
-                        
-                        // FIXED: Using Coflnet (SkyCrypt Style) and SkyHelper fallback logic
+                        const spread = Math.floor(stats.buyPrice - stats.sellPrice);
                         const cleanId = item.id.split(':')[0];
+                        
+                        // Reliable Default Textures
                         const textureUrl = `https://sky.coflnet.com/static/items/${cleanId}.png`;
-                        const fallbackUrl = `https://raw.githubusercontent.com/SkyHelperBot/SkyHelper-Assets/main/items/${cleanId}.png`;
 
                         itemsGrid.innerHTML += `
-                            <div class="luxury-box p-8 flex flex-col items-center justify-between min-h-[350px] text-center">
-                                <img src="${textureUrl}" 
-                                     onerror="this.onerror=null; this.src='${fallbackUrl}'; this.addEventListener('error', function(){this.src='https://mc-heads.net/item/${cleanId.toLowerCase()}';});" 
-                                     class="w-16 h-16 object-contain mb-4 mx-auto block drop-shadow-md">
-                                <h2 class="neon-white text-[11px] tracking-[0.2em] uppercase mb-6 bg-white/10 border border-white/10 rounded-full py-2 px-3 inline-block w-fit mx-auto">
-                                    ${item.name}
-                                </h2>
+                            <div class="luxury-card p-10 flex flex-col group animate-reveal">
+                                <div class="relative mb-10 flex justify-center h-20">
+                                    <div class="absolute inset-0 bg-emerald-500/10 blur-[40px] rounded-full scale-50 group-hover:scale-100 transition-all duration-700"></div>
+                                    <img src="${textureUrl}" class="w-20 h-20 object-contain relative z-10 transition-all duration-500 group-hover:scale-125" 
+                                         onerror="this.src='https://mc-heads.net/item/${cleanId.toLowerCase()}'">
+                                </div>
 
-                                <div class="space-y-4 text-left w-full px-4">
-                                    <div class="flex justify-between items-center text-[10px] border-b border-white/10 pb-2 gap-4">
-                                        <span class="text-white/45 uppercase whitespace-nowrap">Buy Order Price</span>
-                                        <span class="font-semibold text-right">${buyPrice.toLocaleString()}</span>
+                                <div class="text-center mb-10">
+                                    <h2 class="text-xs font-bold uppercase tracking-widest text-white group-hover:text-emerald-400 transition-colors">${item.name}</h2>
+                                    <p class="text-[9px] text-white/20 mt-2 tracking-tighter mono">${item.id}</p>
+                                </div>
+
+                                <div class="space-y-4 mb-10 border-y border-white/5 py-6">
+                                    <div class="flex justify-between items-center text-[10px]">
+                                        <span class="text-white/30 uppercase font-bold">Buy Price</span>
+                                        <span class="mono text-white/90 font-bold text-sm">${Math.floor(stats.buyPrice).toLocaleString()}</span>
                                     </div>
-                                    <div class="flex justify-between items-center text-[10px] border-b border-white/10 pb-2 gap-4">
-                                        <span class="text-white/45 uppercase whitespace-nowrap">Sell Order Price</span>
-                                        <span class="font-semibold text-right">${sellPrice.toLocaleString()}</span>
-                                    </div>
-                                    <div class="flex justify-between items-center text-[10px] border-b border-white/10 pb-2 gap-4">
-                                        <span class="text-white/45 uppercase whitespace-nowrap">Weekly Insta Buy</span>
-                                        <span class="font-semibold text-right">${Math.floor(weeklyBuy).toLocaleString()}</span>
-                                    </div>
-                                    <div class="flex justify-between items-center text-[10px] border-b border-white/10 pb-2 gap-4">
-                                        <span class="text-white/45 uppercase whitespace-nowrap">Weekly Insta Sell</span>
-                                        <span class="font-semibold text-right">${Math.floor(weeklySell).toLocaleString()}</span>
+                                    <div class="flex justify-between items-center text-[10px]">
+                                        <span class="text-white/30 uppercase font-bold">Sell Price</span>
+                                        <span class="mono text-white/90 font-bold text-sm">${Math.floor(stats.sellPrice).toLocaleString()}</span>
                                     </div>
                                 </div>
-                                <div class="pt-4 flex justify-between items-baseline w-full border-t border-white/10 mt-auto">
-                                    <span class="text-[9px] text-emerald-300 font-bold tracking-tighter uppercase">PROFIT PER ITEM</span>
-                                    <span class="text-xl font-light tracking-tighter ${spreadColor}">
-                                        ${spreadSymbol}${spread.toLocaleString()}
-                                    </span>
+
+                                <div class="mt-auto">
+                                    <p class="text-[9px] text-emerald-500/60 font-bold uppercase mb-2">Net Profit Potential</p>
+                                    <p class="text-3xl font-light tracking-tighter text-emerald-400 mono">
+                                        +${spread.toLocaleString()}
+                                    </p>
                                 </div>
                             </div>`;
                     }
@@ -207,8 +282,7 @@
                 container.appendChild(itemsGrid);
 
             } catch (e) {
-                console.error(e);
-                container.innerHTML = '<div class="text-center py-20 text-rose-500 uppercase tracking-widest text-xs">API OFFLINE OR ERROR</div>';
+                container.innerHTML = '<div class="text-center py-20 text-rose-500 uppercase tracking-[0.8em] text-xs font-bold">Data Stream Offline</div>';
             }
         }
 
